@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.niu.myapp.myapp" >
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Include next permission if you want to allow UIL to cache images on SD card -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--添加可以向外拨打电话的权限  -->
+    <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
+    <application
+        android:name=".BaseApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="${APP_NAME}"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".view.activity.MainActivity"
+            android:label="${APP_NAME}" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".view.activity.H5Activity"></activity>
+
+        <!--微信支付结果回调页面-->
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"/>
+    </application>
+
+</manifest>

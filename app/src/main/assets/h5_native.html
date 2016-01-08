@@ -1,0 +1,58 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+
+    <script type="text/javascript">
+//js提供给native调用的方法
+var javaInterfaces =   {"getTitle":"getTitle(%s)"};
+
+var jsInterfaces;
+function onInit(interfaces, callback){
+
+    jsInterfaces = interfaces;
+<!--document.getElementById("_info").innerhtml = "interfa="+jsInterfaces+" init="+callback;-->
+
+<!--alert("callback="+callback+" type="+typeof(callback)+"  st="+typeof(jsInterfaces));-->
+   var obj=JSON.stringify(javaInterfaces);
+
+    callback(obj);
+}
+
+function getTitle(callback){
+callback("测试例子");
+
+}
+
+function call(){
+  var call = jsInterfaces.onCall;
+  eval(call);
+  onCall('11111111');
+ <!--alert("callback="+call+" type="+typeof(call));-->
+
+}
+
+function t(){
+  eval(jsInterfaces.onNavi);
+  onNavi("111","222");
+
+}
+
+
+
+
+
+</script>
+</head>
+
+<body>
+
+<div id="_info">大家好啊 我是页面内容</div>
+
+<button onclick="call()" value="">点击拨打电话</button><br>
+
+<button onclick="t()" value="">点击进行导航</button><br>
+
+</body>
+</html>

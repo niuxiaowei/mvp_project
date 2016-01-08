@@ -1,0 +1,102 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
+    signingConfigs {
+        config {
+            keyAlias 'my'
+            keyPassword '123456'
+            storeFile file('D:/work/soft/mykey.jks')
+            storePassword '123456'
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+    defaultConfig {
+        applicationId "com.niu.myapp.myapp"
+        minSdkVersion 15
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+    }
+
+    sourceSets {
+
+//        main.setRoot('mainjava')
+//        androidTest.setRoot('tests')
+    }
+
+
+    buildTypes {
+        release {
+            applicationIdSuffix ".release"
+            //把字符串资源加入 资源文件
+            resValue("string","test","test");
+            buildConfigField("boolean","CONFIG_DEBUG","false");
+            //进行混淆
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+            manifestPlaceholders = [APP_NAME:"app in release"]
+        }
+
+        debug{
+            applicationIdSuffix ".debug"
+            buildConfigField("boolean","CONFIG_DEBUG","true");
+            manifestPlaceholders = [APP_NAME:"app in debug"]
+        }
+
+
+    }
+    productFlavors{
+        phone {
+            applicationId "com.niu.myapp.myapp.phone"
+            versionName "1.0-phone"
+            manifestPlaceholders = [APP_NAME:"app in phone"]
+        }
+        //若在src下面创建了相应的市场版本的文件夹，该文件夹的名称必须与市场命名相同，如tablet，src文件夹下必须有相同的tablet文件夹
+        tablet {
+            applicationId "com.niu.myapp.myapp.tablet"
+            versionName "1.0-tablet"
+            //manifestPlaceholders定义占位符，可以在资源文件或androidmanifest中使用
+            manifestPlaceholders = [APP_NAME:"app in tablet"]
+        }
+    }
+
+
+}
+
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'com.mcxiaoke.volley:library:1.0.19'
+    apt 'com.google.dagger:dagger-compiler:2.0'
+    compile 'com.google.dagger:dagger:2.0'
+    compile 'org.glassfish:javax.annotation:10.0-b28'
+//    compile project(':android-volley')
+}
+
+task mytest << {
+    android.buildTypes.release.setRoot('build-types/release')
+    println android.buildTypes.release
+}
+
+//定义一个task，在命令行 通过 gradle helloworld可以执行该任务
+task helloworld << {
+//    def a = "你好"
+//    println a
+//    println helloworld
+//    println 'haha'
+    println release.getName()
+}
+
+//通过构造函数的方式构造一task，并且构建该task依赖于 task helloworld
+Task t = task('task1')
+t.dependsOn(helloworld)
+
