@@ -1,5 +1,6 @@
 package com.niu.myapp.myapp.presenter;
 
+import com.niu.myapp.myapp.model.localdata.db.user.UserDatabase;
 import com.niu.myapp.myapp.view.compnent.IFriendListView;
 
 import javax.inject.Inject;
@@ -22,6 +23,12 @@ public class FriendListPresenter extends BasePresenter implements Presenter {
         if(mFriendListView != null){
             mFriendListView.initView();
         }
+        executTaskOnNormalThread(new Runnable() {
+            @Override
+            public void run() {
+//                UserDatabase.getInstance().q
+            }
+        });
     }
 
     @Override

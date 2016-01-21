@@ -31,10 +31,11 @@ public abstract class BaseActivity extends FragmentActivity  {
     Navigator mNavigator;
 
 
-
-
-
-
+    /**
+     * 为fragment设置functions，具体实现子类来做
+     * @param fragmentId
+     */
+    public void setFunctionsForFragment(int fragmentId){}
 
 
 

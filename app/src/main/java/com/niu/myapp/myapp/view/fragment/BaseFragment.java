@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.niu.myapp.myapp.internal.di.HasComponent;
 import com.niu.myapp.myapp.presenter.Presenter;
 import com.niu.myapp.myapp.view.activity.BaseActivity;
+import com.niu.myapp.myapp.view.util.Functions;
 import com.niu.myapp.myapp.view.widget.ConfirmDialogFragment;
 import com.niu.myapp.myapp.view.widget.ProgressDialogFragment;
 
@@ -38,17 +39,13 @@ public abstract class BaseFragment extends Fragment {
     //自定义进度dialog
     private ProgressDialogFragment mProgressDialog;
 
-    private InvokeBuilder mInvokeBuilder;
+    protected Functions mFunctions;
 
-    public void setInvokeBuilder(InvokeBuilder builder){
-        this.mInvokeBuilder = builder;
+    public void setFunctions(Functions functions){
+        this.mFunctions = functions;
     }
 
-    public <Data> void invoke(String invokeTag,Data data){
-        if(mInvokeBuilder != null){
-            mInvokeBuilder.invoke(invokeTag,data);
-        }
-    }
+
 
     /**
      * @param message 进度条显示的信息
@@ -118,6 +115,7 @@ public abstract class BaseFragment extends Fragment {
         super.onAttach(activity);
         if(activity instanceof BaseActivity){
             mBaseActivity = (BaseActivity)activity;
+            mBaseActivity.setFunctionsForFragment(getId());
         }
     }
 
@@ -186,38 +184,38 @@ public abstract class BaseFragment extends Fragment {
     protected abstract void onInjectFragment();
 
 
-    /**
-     * 该接口定义fragment调用activity的方法
-     * @param <Data>
-     */
-     public static interface FragmentInvokeActivityListener<Data>{
-         void invokeActivityMethod(Data data);
-     }
-
-    public static class InvokeBuilder{
-
-        private HashMap<String,FragmentInvokeActivityListener> mInvokeListeners ;
-
-
-        public InvokeBuilder addInvoke(String invokeTag, FragmentInvokeActivityListener listener){
-            if(invokeTag == null || listener == null){
-                return this;
-            }
-            if(mInvokeListeners == null){
-                mInvokeListeners = new HashMap<>(1);
-            }
-            mInvokeListeners.put(invokeTag,listener);
-
-            return this;
-        }
-
-        public <Data> void invoke(String invokeTag, Data data){
-            if(mInvokeListeners != null){
-                FragmentInvokeActivityListener l = mInvokeListeners.get(invokeTag);
-
-                l.invokeActivityMethod(data);
-            }
-        }
-    }
+//    /**
+//     * 该接口定义fragment调用activity的方法
+//     * @param <Data>
+//     */
+//     public static interface FragmentInvokeActivityListener<Data>{
+//         void invokeActivityMethod(Data data);
+//     }
+//
+//    public static class InvokeBuilder{
+//
+//        private HashMap<String,FragmentInvokeActivityListener> mInvokeListeners ;
+//
+//
+//        public InvokeBuilder addInvoke(String invokeTag, FragmentInvokeActivityListener listener){
+//            if(invokeTag == null || listener == null){
+//                return this;
+//            }
+//            if(mInvokeListeners == null){
+//                mInvokeListeners = new HashMap<>(1);
+//            }
+//            mInvokeListeners.put(invokeTag,listener);
+//
+//            return this;
+//        }
+//
+//        public <Data> void invoke(String invokeTag, Data data){
+//            if(mInvokeListeners != null){
+//                FragmentInvokeActivityListener l = mInvokeListeners.get(invokeTag);
+//
+//                l.invokeActivityMethod(data);
+//            }
+//        }
+//    }
 
 }

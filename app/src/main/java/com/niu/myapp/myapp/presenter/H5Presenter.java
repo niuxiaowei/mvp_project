@@ -21,7 +21,7 @@ import java.util.HashSet;
  * Created by niuxiaowei on 2015/10/23.
  * html5的presenter主持类，涉及到html5与nativ之间的交互
  */
-public class H5Presenter  implements Presenter ,JavaJSBridge.IBridgeListener {
+public class    H5Presenter  implements Presenter ,JavaJSBridge.IBridgeListener {
 
     private WebView mWebView;
     private IH5View mIH5View;

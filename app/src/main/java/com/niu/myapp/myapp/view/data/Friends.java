@@ -17,4 +17,8 @@ public class Friends {
     public List<Friend> getAllFriends(){
         return mFriends;
     }
+
+    public int length(){
+        return mFriends.size();
+    }
 }

@@ -4,6 +4,7 @@ import com.niu.myapp.myapp.internal.di.PerActivity;
 import com.niu.myapp.myapp.internal.di.modules.FriendsModule;
 import com.niu.myapp.myapp.internal.di.modules.LoginModule;
 import com.niu.myapp.myapp.presenter.FriendListPresenter;
+import com.niu.myapp.myapp.view.fragment.FriendFragment;
 import com.niu.myapp.myapp.view.fragment.MainFragment;
 
 import dagger.Component;
@@ -14,6 +15,6 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = ApplicationComponent.class, modules = {FriendsModule.class})
 public interface FriendsComponent {
-    void inject(MainFragment fragment);
+    void inject(FriendFragment fragment);
     FriendListPresenter getFriendListPresenter();
 }

@@ -9,9 +9,11 @@ import android.view.MenuItem;
 
 import com.niu.myapp.myapp.R;
 
+import com.niu.myapp.myapp.common.util.DLog;
+import com.niu.myapp.myapp.view.data.Friend;
 import com.niu.myapp.myapp.view.fragment.BaseFragment;
 import com.niu.myapp.myapp.view.fragment.MainFragment;
-
+import com.niu.myapp.myapp.view.util.Functions;
 
 
 public class MainActivity extends BaseActivity {
@@ -21,16 +23,28 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FragmentManager fm = getSupportFragmentManager();
-        MainFragment fragment = (MainFragment)fm.findFragmentById(R.id.main_fragment);
-        fragment.setInvokeBuilder(new BaseFragment.InvokeBuilder().addInvoke(MainFragment.INVOKE_TO_H5_TAG, new BaseFragment.FragmentInvokeActivityListener<String>() {
-            @Override
-            public void invokeActivityMethod(String o) {
-                getApplicationComponent().getNavigator().toH5Activity(MainActivity.this,o);
-            }
-        }));
+
+
 
     }
+
+    @Override
+    public void setFunctionsForFragment(int fragmentId) {
+        FragmentManager fm = getSupportFragmentManager();
+        MainFragment fragment = (MainFragment)fm.findFragmentById(fragmentId);
+        super.setFunctionsForFragment(fragmentId);
+        switch (fragmentId){
+            case R.id.main_fragment:
+                fragment.setFunctions(new Functions().addFunction(new Functions.FunctionWithParam<String>(MainFragment.INVOKE_TO_H5_TAG) {
+                    @Override
+                    public void function(String o) {
+                        getApplicationComponent().getNavigator().toH5Activity(MainActivity.this, o);
+                    }
+                }));
+
+        }
+    }
+
 
 
     @Override

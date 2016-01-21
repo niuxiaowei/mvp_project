@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.niu.myapp.myapp.R;
 import com.niu.myapp.myapp.common.http.image.ImageLoaderProxy;
+import com.niu.myapp.myapp.common.util.DLog;
 import com.niu.myapp.myapp.common.util.ToastUtil;
 import com.niu.myapp.myapp.internal.di.components.DaggerMainComponent;
 import com.niu.myapp.myapp.internal.di.components.MainComponent;
@@ -25,8 +26,10 @@ import com.niu.myapp.myapp.view.annotation.IsPresneter;
 import com.niu.myapp.myapp.view.compnent.IFriendListView;
 import com.niu.myapp.myapp.view.compnent.ILoginView;
 import com.niu.myapp.myapp.view.compnent.IMainView;
+import com.niu.myapp.myapp.view.data.Friend;
 import com.niu.myapp.myapp.view.data.Friends;
 import com.niu.myapp.myapp.view.data.User;
+import com.niu.myapp.myapp.view.util.Functions;
 import com.niu.myapp.myapp.view.widget.ConfirmDialogFragment;
 
 import javax.inject.Inject;
@@ -41,8 +44,6 @@ public class MainFragment extends BaseFragment implements IMainView {
 
 
     private ImageView mImageView;
-
-
 
 
     public static final String  INVOKE_TO_H5_TAG = "to_h5_tag";
@@ -142,9 +143,10 @@ public class MainFragment extends BaseFragment implements IMainView {
         getView().findViewById(R.id.to_h5_activity).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                invoke(INVOKE_TO_H5_TAG,"file:///android_asset/h5_native.html");
+                if(mFunctions != null){
+                    mFunctions.invokeFunc(INVOKE_TO_H5_TAG, "file:///android_asset/h5_native.html");
+                }
 
-//                mNavigator.toH5Activity(MainActivity.this, "file:///android_asset/h5_native.html");
             }
         });
     }
