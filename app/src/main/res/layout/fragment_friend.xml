@@ -11,6 +11,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="点击添加5个好友"/>
+    <Button
+        android:id="@+id/show_confi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="弹确认对话框"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="wrap_content"

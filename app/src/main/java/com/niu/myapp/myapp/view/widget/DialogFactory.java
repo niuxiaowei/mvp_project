@@ -83,18 +83,17 @@ public class DialogFactory {
 
      * @param title 对话框title
      * @param message
-     * @param dialogId
      * @param cancelable
      * @param listener
      */
-    public void showConfirmDialog(String title,String message,int dialogId,boolean cancelable, ConfirmDialogFragment.ConfirmDialogListener listener){
+    public void showConfirmDialog(String title,String message,boolean cancelable, ConfirmDialogFragment.ConfirmDialogListener listener){
 
         FragmentTransaction ft = mFragmentManager.beginTransaction();
         Fragment fragment = mFragmentManager.findFragmentByTag(DIALOG_CONFIRM_TAG);
         if (null != fragment) {
             ft.remove(fragment);
         }
-        DialogFragment df = ConfirmDialogFragment.newInstance(title, message, dialogId, cancelable);
+        DialogFragment df = ConfirmDialogFragment.newInstance(title, message, cancelable);
         df.show(mFragmentManager,DIALOG_CONFIRM_TAG);
         mListenerHolder.setDialogListener(listener);
     }

@@ -58,7 +58,16 @@ public class DialogListenerHolder {
      * @param o
      */
     public void restoreDialogListener(Object o){
+        if(o == null){
+            return;
+        }
         if(!isNeedRestoreDialogListener()){
+            return;
+        }
+
+        //先尝试找传进来的实例
+        if(o instanceof BaseDialogFragment.BaseDialogListener && o.getClass().getName().equals(mDialogListenerKey)){
+            setDialogListener((BaseDialogFragment.BaseDialogListener)o);
             return;
         }
         Class c = o.getClass();

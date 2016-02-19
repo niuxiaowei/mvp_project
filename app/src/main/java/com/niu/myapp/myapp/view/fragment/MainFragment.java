@@ -73,7 +73,7 @@ public class MainFragment extends BaseFragment implements IMainView,DialogInterf
         public void loginSuccess() {
 
             mLoadDataStateView.setText("登录成功");
-            mDialogFactory.showConfirmDialog("my app", "恭喜登录成", 2, true, new ConfirmDialogFragment.ConfirmDialogListener() {
+            mDialogFactory.showConfirmDialog("my app", "恭喜登录成", true, new ConfirmDialogFragment.ConfirmDialogListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 

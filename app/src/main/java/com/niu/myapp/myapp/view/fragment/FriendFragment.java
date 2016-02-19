@@ -18,6 +18,7 @@ import com.niu.myapp.myapp.view.adapter.FriendAdapter;
 import com.niu.myapp.myapp.view.compnent.IFriendListView;
 import com.niu.myapp.myapp.view.data.Friend;
 import com.niu.myapp.myapp.view.widget.BaseDialogFragment;
+import com.niu.myapp.myapp.view.widget.ConfirmDialogFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ import static com.niu.myapp.myapp.view.adapter.FriendAdapter.*;
 /**
  * Created by niuxiaowei on 2016/1/19.
  */
-public class FriendFragment extends BaseFragment implements IFriendListView{
+public class FriendFragment extends BaseFragment implements IFriendListView,ConfirmDialogFragment.ConfirmDialogListener{
     private FriendsComponent mFriendsComponent;
     private RecyclerView mRecyclerView;
     private FriendAdapter mAdapter;
@@ -90,7 +91,7 @@ public class FriendFragment extends BaseFragment implements IFriendListView{
                 for (int i = 0; i < 5; i++) {
                     Friend f = new Friend();
                     f.mLoginId = FriendListPresenter.LOGIN_USERID;
-                    f.mUserId = r.nextLong()+"";
+                    f.mUserId = r.nextLong() + "";
                     f.mName = f.mUserId;
                     f.mAge = 20;
                     fs.add(f);
@@ -98,8 +99,18 @@ public class FriendFragment extends BaseFragment implements IFriendListView{
                 mFriendsComponent.getFriendListPresenter().saveFriends(fs);
             }
         });
+
+        getView().findViewById(R.id.show_confi).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               mDialogFactory.showConfirmDialog("对话框","我是确认对话框",false,FriendFragment.this);
+            }
+        });
     }
 
 
-
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        ToastUtil.showLong(getActivity(),"点击了我 我是which="+which);
+    }
 }

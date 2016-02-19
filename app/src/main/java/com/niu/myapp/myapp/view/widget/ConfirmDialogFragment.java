@@ -33,14 +33,12 @@ public class ConfirmDialogFragment extends BaseDialogFragment {
     /**
      * @param title
      * @param message
-     * @param dialogId
      * @param isCanelable
      * @return
      */
-    public static ConfirmDialogFragment newInstance(String title, String message,int dialogId,boolean isCanelable){
+    public static ConfirmDialogFragment newInstance(String title, String message,boolean isCanelable){
         ConfirmDialogFragment instance = new ConfirmDialogFragment();
         Bundle args = new Bundle();
-        putIdParam(args, dialogId);
         putTitleParam(args, title);
         putMessageParam(args, message);
         putCancelableParam(args, isCanelable);
@@ -62,7 +60,17 @@ public class ConfirmDialogFragment extends BaseDialogFragment {
 
 
             AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle(mTitle== null?getString(R.string.app_name):mTitle).setMessage(message== null?" ":message)
-                    .setPositiveButton("确定", mListener).setNegativeButton("取消", mListener).create();
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mListener.onClick(dialog,which);
+                        }
+                    }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mListener.onClick(dialog,which);
+                        }
+                    }).create();
             return dialog;
         }else{
             return super.onCreateDialog(savedInstanceState);
