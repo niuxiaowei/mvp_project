@@ -14,9 +14,13 @@ public class FriendModel extends ORMModel {
 
     public static final String COL_USER_ID =  "userid";
     public static final String COL_USER_NAME =  "username";
+    public static final String COL_LOGIN_USER_ID =  "login_userid";
+
 
     @DBColumn(name = COL_USER_ID)
     public String mUserId ;
     @DBColumn(name = COL_USER_NAME)
     public String mUserName;
+    @DBColumn(name = COL_LOGIN_USER_ID)
+    public String mLoginUserId;
 }

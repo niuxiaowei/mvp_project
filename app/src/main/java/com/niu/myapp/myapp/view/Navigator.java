@@ -1,7 +1,9 @@
 package com.niu.myapp.myapp.view;
 
 import android.content.Context;
+import android.content.Intent;
 
+import com.niu.myapp.myapp.view.activity.FriendActivity;
 import com.niu.myapp.myapp.view.activity.H5Activity;
 
 import javax.inject.Inject;
@@ -17,5 +19,10 @@ public class Navigator {
 
     public   void toH5Activity(Context context,String url){
         H5Activity.toH5Activity(context, url);
+    }
+
+    public void toFriendsActivity(Context context){
+        Intent toF = new Intent(context,FriendActivity.class);
+        context.startActivity(toF);
     }
 }

@@ -5,6 +5,8 @@ package com.niu.myapp.myapp.view.data;
  */
 public class Friend {
     public String mName;
-    public String mId;
+    public long mId;
     public int mAge;
+    public String mUserId;
+    public String mLoginId;
 }

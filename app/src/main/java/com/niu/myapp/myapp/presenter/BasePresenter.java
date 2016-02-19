@@ -9,10 +9,10 @@ import com.niu.myapp.myapp.view.executor.UIThreadExecutor;
 public class BasePresenter {
 
     protected void executTaskOnUIThread(Runnable task){
-        UIThreadExecutor.getExecutor().executTask(task);
+        UIThreadExecutor.getExecutor().execute(task);
     }
 
     protected void executTaskOnNormalThread(Runnable task){
-        NormalThreadExecutor.getExecutor().executTask(task);
+        NormalThreadExecutor.getExecutor().execute(task);
     }
 }

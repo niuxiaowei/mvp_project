@@ -40,12 +40,19 @@ public class MainActivity extends BaseActivity {
                     public void function(String o) {
                         getApplicationComponent().getNavigator().toH5Activity(MainActivity.this, o);
                     }
+                }).addFunction(new Functions.FunctionNoParamAndResult("toFriends") {
+                    @Override
+                    public void function() {
+                        getApplicationComponent().getNavigator().toFriendsActivity(MainActivity.this);
+                    }
                 }));
 
         }
     }
 
-
+    void t(Friend f1,Friend f2,int  p, String p1){
+        DLog.i("test","--------------"+f1.mName+"  "+f2.mName+" ");
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

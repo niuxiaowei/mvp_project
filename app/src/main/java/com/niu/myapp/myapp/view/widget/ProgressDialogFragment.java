@@ -28,6 +28,7 @@ public class ProgressDialogFragment extends BaseDialogFragment {
         return  dialog;
     }
 
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class ProgressDialogFragment extends BaseDialogFragment {
             ProgressDialog dialog = new ProgressDialog(getActivity());
             String message = parseMessageParam();
             dialog.setMessage(message);
-            dialog.setCancelable(parseCancelableParam());
+            dialog.setCancelable(mIsCancelable);
             return dialog;
         }else{
             return super.onCreateDialog(savedInstanceState);

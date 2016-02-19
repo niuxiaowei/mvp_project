@@ -1,21 +1,14 @@
 package com.niu.myapp.myapp.view.fragment;
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import com.niu.myapp.myapp.internal.di.HasComponent;
 import com.niu.myapp.myapp.presenter.Presenter;
 import com.niu.myapp.myapp.view.activity.BaseActivity;
 import com.niu.myapp.myapp.view.util.Functions;
-import com.niu.myapp.myapp.view.widget.ConfirmDialogFragment;
-import com.niu.myapp.myapp.view.widget.ProgressDialogFragment;
+import com.niu.myapp.myapp.view.widget.BaseDialogFragment;
+import com.niu.myapp.myapp.view.widget.DialogFactory;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,7 +19,10 @@ public abstract class BaseFragment extends Fragment {
 
     protected BaseActivity mBaseActivity;
 
+    protected DialogFactory mDialogFactory ;
+
     private Set<Presenter> mAllPresenters = new HashSet<Presenter>(1);
+
 
     /**
      * 子类调用该方法把一个presenter存入
@@ -36,8 +32,7 @@ public abstract class BaseFragment extends Fragment {
         mAllPresenters.add(presenter);
     }
 
-    //自定义进度dialog
-    private ProgressDialogFragment mProgressDialog;
+
 
     protected Functions mFunctions;
 
@@ -45,36 +40,15 @@ public abstract class BaseFragment extends Fragment {
         this.mFunctions = functions;
     }
 
-
-
-    /**
-     * @param message 进度条显示的信息
-     * @param cancelable 点击空白处是否可以取消
-     */
-    public void showProgressDialog(String message, boolean cancelable){
-        /**
-         * 为了不重复显示dialog，在显示对话框之前移除正在显示的对话框。
-         */
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        Fragment fragment = getFragmentManager().findFragmentByTag("progress");
-        if (null != fragment) {
-            ft.remove(fragment);
-        }
-        mProgressDialog = ProgressDialogFragment.newInstance(message,cancelable);
-        mProgressDialog.show(getFragmentManager(), "progress");
+    public BaseDialogFragment.BaseDialogListener getDialogListener(){
+        return mDialogFactory.mListenerHolder.getDialogListener();
     }
 
-
-    /**
-     * 取消进度条
-     */
-    public void dissProgressDialog(){
-        if(mProgressDialog != null){
-            mProgressDialog.dismiss();
-        }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mDialogFactory.mListenerHolder.saveDialogListenerKey(outState);
     }
-
-
 
     /**
      * 把子类中的presenters加入 父类中，需要调用{@link super.addPresenter()}方法
@@ -101,7 +75,8 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        mDialogFactory = new DialogFactory(getChildFragmentManager(),savedInstanceState);
+        mDialogFactory.restoreDialogListener(this);
         onInitializeInjector();
         onInjectFragment();
         onAddPresenters();
@@ -117,6 +92,7 @@ public abstract class BaseFragment extends Fragment {
             mBaseActivity = (BaseActivity)activity;
             mBaseActivity.setFunctionsForFragment(getId());
         }
+
     }
 
     @Override
@@ -153,25 +129,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
 
-    /**
-     *     //显示确认对话框，dialogId是用来区分不同对话框的
 
-     * @param title 对话框title
-     * @param message
-     * @param dialogId
-     * @param cancelable
-     * @param listener
-     */
-    public void showConfirmDialog(String title,String message,int dialogId,boolean cancelable,ConfirmDialogFragment.ConfirmDialogClickListener listener){
-
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        Fragment fragment = getFragmentManager().findFragmentByTag("confirm");
-        if (null != fragment) {
-            ft.remove(fragment);
-        }
-        DialogFragment df = ConfirmDialogFragment.newInstance(title, message, dialogId, cancelable,listener);
-        df.show(getFragmentManager(),"confirm");
-    }
 
     /**
      * 初始化注入器,父类会调用该方法，具体实现需要子类来实现
@@ -184,38 +142,6 @@ public abstract class BaseFragment extends Fragment {
     protected abstract void onInjectFragment();
 
 
-//    /**
-//     * 该接口定义fragment调用activity的方法
-//     * @param <Data>
-//     */
-//     public static interface FragmentInvokeActivityListener<Data>{
-//         void invokeActivityMethod(Data data);
-//     }
-//
-//    public static class InvokeBuilder{
-//
-//        private HashMap<String,FragmentInvokeActivityListener> mInvokeListeners ;
-//
-//
-//        public InvokeBuilder addInvoke(String invokeTag, FragmentInvokeActivityListener listener){
-//            if(invokeTag == null || listener == null){
-//                return this;
-//            }
-//            if(mInvokeListeners == null){
-//                mInvokeListeners = new HashMap<>(1);
-//            }
-//            mInvokeListeners.put(invokeTag,listener);
-//
-//            return this;
-//        }
-//
-//        public <Data> void invoke(String invokeTag, Data data){
-//            if(mInvokeListeners != null){
-//                FragmentInvokeActivityListener l = mInvokeListeners.get(invokeTag);
-//
-//                l.invokeActivityMethod(data);
-//            }
-//        }
-//    }
+
 
 }

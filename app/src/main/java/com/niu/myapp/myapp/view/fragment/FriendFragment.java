@@ -1,5 +1,6 @@
 package com.niu.myapp.myapp.view.fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,24 +9,41 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.niu.myapp.myapp.R;
+import com.niu.myapp.myapp.common.util.ToastUtil;
 import com.niu.myapp.myapp.internal.di.components.DaggerFriendsComponent;
 import com.niu.myapp.myapp.internal.di.components.FriendsComponent;
 import com.niu.myapp.myapp.internal.di.modules.FriendsModule;
+import com.niu.myapp.myapp.presenter.FriendListPresenter;
 import com.niu.myapp.myapp.view.adapter.FriendAdapter;
 import com.niu.myapp.myapp.view.compnent.IFriendListView;
-import com.niu.myapp.myapp.view.data.Friends;
+import com.niu.myapp.myapp.view.data.Friend;
+import com.niu.myapp.myapp.view.widget.BaseDialogFragment;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import static com.niu.myapp.myapp.view.adapter.FriendAdapter.*;
 
 /**
  * Created by niuxiaowei on 2016/1/19.
  */
-public class FriendFragment extends BaseFragment implements IFriendListView {
+public class FriendFragment extends BaseFragment implements IFriendListView{
     private FriendsComponent mFriendsComponent;
     private RecyclerView mRecyclerView;
     private FriendAdapter mAdapter;
+    private FriendsListener mListener = new FriendsListener(){
+
+        Friend longClickFriend ;
+        @Override
+        public void onFriendItemLongClick(Friend longClickFriend) {
+            this.longClickFriend = longClickFriend;
+        }
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_friend,container);
+        return inflater.inflate(R.layout.fragment_friend,container,false);
     }
 
     @Override
@@ -53,15 +71,35 @@ public class FriendFragment extends BaseFragment implements IFriendListView {
     }
 
     @Override
-    public void bindDataForView(Friends friends) {
+    public void bindDataForView(List<Friend> friends) {
         mAdapter.setData(friends);
     }
 
     @Override
     public void initView() {
-        mRecyclerView = (RecyclerView) getView().findViewById(R.id.id_recyclerview);
+        mRecyclerView = (RecyclerView) getView().findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mBaseActivity));
-        mAdapter = new FriendAdapter(mBaseActivity);
+        mAdapter = new FriendAdapter(mBaseActivity,mDialogFactory,mListener);
         mRecyclerView.setAdapter(mAdapter);
+
+        getView().findViewById(R.id.add_friend).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<Friend> fs = new ArrayList<Friend>(5);
+                Random r = new Random(1000);
+                for (int i = 0; i < 5; i++) {
+                    Friend f = new Friend();
+                    f.mLoginId = FriendListPresenter.LOGIN_USERID;
+                    f.mUserId = r.nextLong()+"";
+                    f.mName = f.mUserId;
+                    f.mAge = 20;
+                    fs.add(f);
+                }
+                mFriendsComponent.getFriendListPresenter().saveFriends(fs);
+            }
+        });
     }
+
+
+
 }

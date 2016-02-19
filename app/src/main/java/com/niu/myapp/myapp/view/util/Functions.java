@@ -149,23 +149,29 @@ public class Functions {
      * 根据函数名，回调无参无返回值的函数
      * @param funcName
      */
-    public void invokeFunc(String funcName){
+    public void invokeFunc(String funcName) throws FunctionException {
+        FunctionNoParamAndResult f = null;
         if(mFunctionNoParamAndResult != null){
-            FunctionNoParamAndResult f = mFunctionNoParamAndResult.get(funcName);
+            f = mFunctionNoParamAndResult.get(funcName);
             if(f != null){
                 f.function();
             }
+        }
+
+        if(f == null){
+            throw new FunctionException("没有此函数");
+
         }
     }
 
     /**
      * 根据函数名，回调无参有返回值的函数
      * @param funcName
-     * @param c
      */
-    public <Result> Result invokeFuncWithResult(String funcName, Class<Result> c){
+    public <Result> Result invokeFuncWithResult(String funcName, Class<Result> c) throws FunctionException {
+        FunctionWithResult f = null;
         if(mFunctionWithResult != null){
-            FunctionWithResult f = mFunctionWithResult.get(funcName);
+            f = mFunctionWithResult.get(funcName);
             if(f != null){
                 if(c != null){
                     return c.cast(f.function());
@@ -174,6 +180,10 @@ public class Functions {
                 }
 
             }
+        }
+
+        if(f == null){
+            throw new FunctionException("没有此函数");
         }
         return null;
     }
@@ -184,13 +194,16 @@ public class Functions {
      * @param param
      * @param <Param>
      */
-    public <Param> void invokeFunc(String funcName,Param param){
+    public <Param> void invokeFunc(String funcName,Param param)throws FunctionException{
+        FunctionWithParam f = null;
         if(mFunctionWithParam != null){
-            FunctionWithParam f = mFunctionWithParam.get(funcName);
+            f = mFunctionWithParam.get(funcName);
             if(f != null){
                 f.function(param);
             }
         }
+
+
     }
 
     /**
@@ -199,12 +212,12 @@ public class Functions {
      * @param param
      * @param <Result>
      * @param <Param>
-     * @param c
      * @return
      */
-    public <Result,Param> Result invokeFuncWithResult(String funcName,Param param,Class<Result> c){
+    public <Result,Param> Result invokeFuncWithResult(String funcName,Param param,Class<Result> c) throws FunctionException {
+        FunctionWithParamAndResult f = null;
         if(mFunctionWithParamAndResult != null){
-            FunctionWithParamAndResult f = mFunctionWithParamAndResult.get(funcName);
+            f = mFunctionWithParamAndResult.get(funcName);
             if(f != null){
                 if(c != null){
                     return c.cast(f.function(param));
@@ -212,6 +225,11 @@ public class Functions {
                     return (Result)f.function(param);
                 }
             }
+        }
+
+        if( f == null){
+            throw new FunctionException("没有此函数");
+
         }
         return null;
     }
@@ -226,7 +244,7 @@ public class Functions {
         private int mIndex = -1;
         private Map mObjectParams = new HashMap(1);
 
-        FunctionParams(Bundle mParams,Map mObjectParams){
+        public FunctionParams(Bundle mParams,Map mObjectParams){
             this.mParams = mParams;
             this.mObjectParams = mObjectParams;
         }
@@ -236,6 +254,17 @@ public class Functions {
                 return null;
             }
             return p.cast(mObjectParams.get((mIndex++) + ""));
+        }
+
+        /**
+         * 获取int值
+         * @return
+         */
+        public int getInt(){
+            if(mParams != null){
+                return mParams.getInt((mIndex++) + "");
+            }
+            return 0;
         }
 
         /**
@@ -263,15 +292,27 @@ public class Functions {
         }
 
         /**
-         * 获取Boolean值
-         * @param defalut
+         * 获取字符串
          * @return
          */
-        public boolean getBoolean(boolean defalut){
+        public String getString(){
+            if(mParams != null){
+                return mParams.getString((mIndex++) + "");
+            }
+            return null;
+        }
+
+
+
+        /**
+         * 获取Boolean值
+         * @return 默认返回false
+         */
+        public boolean getBoolean(){
             if(mParams != null){
                 return mParams.getBoolean((mIndex++) + "");
             }
-            return defalut;
+            return false;
         }
 
         /**

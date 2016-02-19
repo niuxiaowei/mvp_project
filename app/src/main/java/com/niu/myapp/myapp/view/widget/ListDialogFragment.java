@@ -15,43 +15,41 @@ import android.view.Window;
 
 import com.niu.myapp.myapp.R;
 
+import java.util.List;
+
 /**
- * Created by niuxiaowei on 2015/10/16.
+ * Created by niuxiaowei on 2016/2/3.
+ * 列表dialog
  */
-public class ConfirmDialogFragment extends BaseDialogFragment {
+public class ListDialogFragment extends BaseDialogFragment{
 
-    private String message ;
-    private ConfirmDialogListener mListener;
+    private String[] mItemContents;
+    private ListDialogListener mListener;
 
-    /**
-     * 确认对话框的listener
-     */
-    public interface ConfirmDialogListener extends BaseDialogListener,DialogInterface.OnClickListener{
-
+    public static interface ListDialogListener extends BaseDialogListener{
+        void onItemClick(int position);
     }
 
     /**
-     * @param title
-     * @param message
-     * @param dialogId
-     * @param isCanelable
+     * @param itemContents
+     * @param cancelable
      * @return
      */
-    public static ConfirmDialogFragment newInstance(String title, String message,int dialogId,boolean isCanelable){
-        ConfirmDialogFragment instance = new ConfirmDialogFragment();
-        Bundle args = new Bundle();
-        putIdParam(args, dialogId);
-        putTitleParam(args, title);
-        putMessageParam(args, message);
-        putCancelableParam(args, isCanelable);
-        instance.setArguments(args);
-        return instance;
+    public static ListDialogFragment newInstance(String[] itemContents,boolean cancelable){
+
+        ListDialogFragment dialog = new ListDialogFragment();
+        Bundle bundle = new Bundle();
+        bundle.putStringArray("items", itemContents);
+        putCancelableParam(bundle, cancelable);
+        dialog.setArguments(bundle);
+        return  dialog;
     }
 
     @Override
     protected void onReceiveDialogListener(BaseDialogListener listener) {
-        if(listener instanceof ConfirmDialogListener){
-            mListener = (ConfirmDialogListener)listener;
+        super.onReceiveDialogListener(listener);
+        if(listener instanceof ListDialogListener){
+            mListener = (ListDialogListener)listener;
         }
     }
 
@@ -59,11 +57,16 @@ public class ConfirmDialogFragment extends BaseDialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         if(!mIsCustomDialog){
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setItems(getArguments().getStringArray("items"), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if(mListener != null){
+                        mListener.onItemClick(which);
+                    }
+                }
+            });
 
-
-            AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle(mTitle== null?getString(R.string.app_name):mTitle).setMessage(message== null?" ":message)
-                    .setPositiveButton("确定", mListener).setNegativeButton("取消", mListener).create();
-            return dialog;
+            return builder.create();
         }else{
             return super.onCreateDialog(savedInstanceState);
         }
@@ -85,17 +88,9 @@ public class ConfirmDialogFragment extends BaseDialogFragment {
         }else{
             return super.onCreateView(inflater,container,savedInstanceState);
         }
-
     }
 
-    @Override
-    protected void parseArgs(Bundle args) {
-        message = parseMessageParam();
 
-    }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+
 }

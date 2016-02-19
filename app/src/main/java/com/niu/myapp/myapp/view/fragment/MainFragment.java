@@ -1,9 +1,11 @@
 package com.niu.myapp.myapp.view.fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -11,33 +13,26 @@ import android.widget.TextView;
 
 import com.niu.myapp.myapp.R;
 import com.niu.myapp.myapp.common.http.image.ImageLoaderProxy;
-import com.niu.myapp.myapp.common.util.DLog;
 import com.niu.myapp.myapp.common.util.ToastUtil;
 import com.niu.myapp.myapp.internal.di.components.DaggerMainComponent;
 import com.niu.myapp.myapp.internal.di.components.MainComponent;
 import com.niu.myapp.myapp.internal.di.modules.FriendsModule;
 import com.niu.myapp.myapp.internal.di.modules.LoginModule;
 import com.niu.myapp.myapp.internal.di.modules.MainModule;
-import com.niu.myapp.myapp.presenter.FriendListPresenter;
-import com.niu.myapp.myapp.presenter.LoginPresenter;
-import com.niu.myapp.myapp.presenter.MainPresenter;
-import com.niu.myapp.myapp.view.annotation.IsIView;
-import com.niu.myapp.myapp.view.annotation.IsPresneter;
 import com.niu.myapp.myapp.view.compnent.IFriendListView;
 import com.niu.myapp.myapp.view.compnent.ILoginView;
 import com.niu.myapp.myapp.view.compnent.IMainView;
 import com.niu.myapp.myapp.view.data.Friend;
-import com.niu.myapp.myapp.view.data.Friends;
 import com.niu.myapp.myapp.view.data.User;
-import com.niu.myapp.myapp.view.util.Functions;
+import com.niu.myapp.myapp.view.util.FunctionException;
 import com.niu.myapp.myapp.view.widget.ConfirmDialogFragment;
 
-import javax.inject.Inject;
+import java.util.List;
 
 /**
  * Created by niuxiaowei on 2015/11/18.
  */
-public class MainFragment extends BaseFragment implements IMainView {
+public class MainFragment extends BaseFragment implements IMainView,DialogInterface.OnClickListener {
 
     private MainComponent mMainComponent;
 
@@ -60,6 +55,10 @@ public class MainFragment extends BaseFragment implements IMainView {
 
     }
 
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        ToastUtil.showLong(mBaseActivity, "id="+which);
+    }
 
 
     private class LoginView implements ILoginView {
@@ -67,31 +66,26 @@ public class MainFragment extends BaseFragment implements IMainView {
 
         @Override
         public void showLoginingView() {
-            showProgressDialog("数据正在加载中.....", false);
+            mDialogFactory.showProgressDialog("数据正在加载中.....", false);
         }
 
         @Override
         public void loginSuccess() {
 
             mLoadDataStateView.setText("登录成功");
-            showConfirmDialog("my app", "恭喜登录成", 2, true, new ConfirmDialogFragment.ConfirmDialogClickListener() {
+            mDialogFactory.showConfirmDialog("my app", "恭喜登录成", 2, true, new ConfirmDialogFragment.ConfirmDialogListener() {
                 @Override
-                public void onOKClick() {
-                    ToastUtil.showLong(mBaseActivity, "id=" );
-                }
-
-                @Override
-                public void onCancleClick() {
+                public void onClick(DialogInterface dialog, int which) {
 
                 }
             });
-            dissProgressDialog();
+            mDialogFactory.dissProgressDialog();
         }
 
         @Override
         public void loginFailed(String failedReason) {
             mLoadDataStateView.setText("登录失败");
-            dissProgressDialog();
+            mDialogFactory.dissProgressDialog();
         }
 
         @Override
@@ -120,7 +114,7 @@ public class MainFragment extends BaseFragment implements IMainView {
 
         ListView mFriendsView ;
         @Override
-        public void bindDataForView(Friends friends) {
+        public void bindDataForView(List<Friend> friends) {
 
         }
 
@@ -143,10 +137,27 @@ public class MainFragment extends BaseFragment implements IMainView {
         getView().findViewById(R.id.to_h5_activity).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mFunctions != null){
-                    mFunctions.invokeFunc(INVOKE_TO_H5_TAG, "file:///android_asset/h5_native.html");
+                if (mFunctions != null) {
+                    try {
+                        mFunctions.invokeFunc(INVOKE_TO_H5_TAG, "file:///android_asset/h5_native.html");
+                    } catch (FunctionException e) {
+                        e.printStackTrace();
+                    }
                 }
 
+            }
+        });
+
+        getView().findViewById(R.id.to_friends).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mFunctions != null) {
+                    try {
+                        mFunctions.invokeFunc("toFriends");
+                    } catch (FunctionException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         });
     }

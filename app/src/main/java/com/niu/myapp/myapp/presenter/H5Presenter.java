@@ -33,7 +33,8 @@ public class    H5Presenter  implements Presenter ,JavaJSBridge.IBridgeListener 
 
     @Override
     public void onBridgePrepared() {
-        UIThreadExecutor.getExecutor().executTask(new Runnable() {
+
+        UIThreadExecutor.getExecutor().execute(new Runnable() {
             @Override
             public void run() {
                 mIH5View.onHtml5PageIsOK();
@@ -66,7 +67,7 @@ public class    H5Presenter  implements Presenter ,JavaJSBridge.IBridgeListener 
         @JavascriptInterface
         @JavascriptInterfaceKey(value = JAVA_INTERFACE_ON_GET_TITLE_KEY)
         public void onGetTitle(final String title) {
-            UIThreadExecutor.getExecutor().executTask(new Runnable() {
+            UIThreadExecutor.getExecutor().execute(new Runnable() {
                 @Override
                 public void run() {
                     if (mIH5View != null) {
@@ -84,7 +85,7 @@ public class    H5Presenter  implements Presenter ,JavaJSBridge.IBridgeListener 
         @JavascriptInterfaceKey(value = JAVA_INTERFACE_ON_CALL_KEY)
         public void onCall(final String phoneNum) {
 
-            UIThreadExecutor.getExecutor().executTask(new Runnable() {
+            UIThreadExecutor.getExecutor().execute(new Runnable() {
                 @Override
                 public void run() {
 
