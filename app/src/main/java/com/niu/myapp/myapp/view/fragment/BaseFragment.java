@@ -44,6 +44,13 @@ public abstract class BaseFragment extends Fragment {
         return mDialogFactory.mListenerHolder.getDialogListener();
     }
 
+    /**
+     * 清空DialogListenerHolder中的dialog listener
+     */
+    public void clearDialogListener(){
+        mDialogFactory.mListenerHolder.setDialogListener(null);
+    }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -70,7 +77,10 @@ public abstract class BaseFragment extends Fragment {
     }
 
 
-
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

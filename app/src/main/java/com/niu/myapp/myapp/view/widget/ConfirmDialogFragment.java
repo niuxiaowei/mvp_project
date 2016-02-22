@@ -77,6 +77,8 @@ public class ConfirmDialogFragment extends BaseDialogFragment {
         }
     }
 
+
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

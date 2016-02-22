@@ -28,7 +28,7 @@ public class DialogListenerHolder {
 
     public void setDialogListener(BaseDialogFragment.BaseDialogListener listener){
         mDialogListener = listener;
-        mDialogListenerKey = listener.getClass().getName();
+        mDialogListenerKey = listener == null ?null:listener.getClass().getName();
     }
 
     /**
@@ -36,7 +36,7 @@ public class DialogListenerHolder {
      * @param outState
      */
     public void saveDialogListenerKey(Bundle outState){
-        if(outState != null){
+        if(outState != null && mDialogListenerKey != null){
             outState.putString("key",mDialogListenerKey);
         }
     }
