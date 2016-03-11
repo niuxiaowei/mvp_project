@@ -1,14 +1,14 @@
-package com.niu.myapp.myapp.model.localdata;
+package com.niu.myapp.myapp.data.entity;
 
-import com.niu.myapp.myapp.model.localdata.db.DBColumn;
-import com.niu.myapp.myapp.model.localdata.db.DBTable;
-import com.niu.myapp.myapp.model.localdata.db.ORMModel;
+import com.niu.myapp.myapp.data.localdata.db.DBColumn;
+import com.niu.myapp.myapp.data.localdata.db.DBTable;
+import com.niu.myapp.myapp.data.localdata.db.ORMModel;
 
 /**
  * Created by niuxiaowei on 2016/1/15.
  */
-@DBTable(name = UserModel.TABLE_NAME)
-public class UserModel extends ORMModel {
+@DBTable(name = UserEntity.TABLE_NAME)
+public class UserEntity extends ORMModel {
 
     public static final String TABLE_NAME =  "user";
 

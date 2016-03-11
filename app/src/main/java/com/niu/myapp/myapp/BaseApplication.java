@@ -6,7 +6,7 @@ import com.niu.myapp.myapp.common.http.image.ImageLoaderProxy;
 import com.niu.myapp.myapp.internal.di.components.ApplicationComponent;
 import com.niu.myapp.myapp.internal.di.components.DaggerApplicationComponent;
 import com.niu.myapp.myapp.internal.di.modules.ApplicationModule;
-import com.niu.myapp.myapp.model.datasource.FriendDatastoreFactory;
+import com.niu.myapp.myapp.data.datastore.FriendDatastoreFactory;
 
 import javax.inject.Inject;
 

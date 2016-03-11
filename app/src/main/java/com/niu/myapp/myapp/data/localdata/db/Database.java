@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.niu.myapp.myapp.model.localdata.db;
+package com.niu.myapp.myapp.data.localdata.db;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -13,11 +13,6 @@ import com.niu.myapp.myapp.Envi;
 import com.niu.myapp.myapp.common.util.DLog;
 import com.niu.myapp.myapp.common.util.SerializedUtils;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -30,7 +25,7 @@ import java.util.List;
  * 
  * <p>
  * 假设你想创建一个城市相关的数据库，这个数据库中包含两张表：省份表和城市表，那么你可以创建两个继承自 {@link ORMModel} 的 model 类，
- * 用来映射到城市数据库中的两张表，另外，再创建一个派生自 {@link com.niu.myapp.myapp.model.localdata.db.Database} 的子类，用来表示你的数据库。<br>
+ * 用来映射到城市数据库中的两张表，另外，再创建一个派生自 {@link com.niu.myapp.myapp.data.localdata.db.Database} 的子类，用来表示你的数据库。<br>
  * 例如你可以这样编写你的省份类：
  * <p>
  * 
@@ -114,7 +109,7 @@ import java.util.List;
  * </pre>
  * 
  * <p>
- * 接下来，你可以创建一个派生自 {@link com.niu.myapp.myapp.model.localdata.db.Database} 的子类，用来表示你的数据库：
+ * 接下来，你可以创建一个派生自 {@link com.niu.myapp.myapp.data.localdata.db.Database} 的子类，用来表示你的数据库：
  * </p>
  * 
  * <pre>
@@ -336,6 +331,10 @@ public abstract class Database {
      * @return 成功插入的条数
      */
     public <T extends ORMModel> int insert(List<T> list) {
+        if(list == null){
+            return 0;
+        }
+        DLog.i(TAG, "insert list: " + list);
         int insertCount = 0;
         SQLiteDatabase db = null;
         try {
@@ -363,6 +362,7 @@ public abstract class Database {
                 DLog.e(TAG, e2);
             }
         }
+        DLog.i(TAG, "insert insertCount: " + insertCount);
         return insertCount;
     }
     

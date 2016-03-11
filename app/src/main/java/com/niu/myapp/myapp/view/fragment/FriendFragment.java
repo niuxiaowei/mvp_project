@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.niu.myapp.myapp.R;
 import com.niu.myapp.myapp.common.util.ToastUtil;
@@ -105,7 +106,14 @@ public class FriendFragment extends BaseFragment implements IFriendListView,Conf
         getView().findViewById(R.id.show_confi).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               mDialogFactory.showConfirmDialog("对话框","我是确认对话框",false,FriendFragment.this);
+               mDialogFactory.showConfirmDialog("对话框", "我是确认对话框", false, FriendFragment.this);
+            }
+        });
+
+        getView().findViewById(R.id.get_githubuser).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.getGitHubUser("niuxiaowei");
             }
         });
     }
@@ -114,5 +122,10 @@ public class FriendFragment extends BaseFragment implements IFriendListView,Conf
     @Override
     public void onClick(DialogInterface dialog, int which) {
         ToastUtil.showLong(getActivity(),"点击了我 我是which="+which);
+    }
+
+    @Override
+    public void showGitHubUser(String userName) {
+        ((TextView)getView().findViewById(R.id.get_githubuser)).setText(userName);
     }
 }

@@ -1,9 +1,9 @@
-package com.niu.myapp.myapp.model.remotedata;
+package com.niu.myapp.myapp.data.entity;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 
-public class User {
+public class GitHubUserEntity {
 
     @Expose
     private String login;

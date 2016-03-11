@@ -1,9 +1,8 @@
 /**
  * 
  */
-package com.niu.myapp.myapp.model.localdata.db;
+package com.niu.myapp.myapp.data.localdata.db;
 
-import java.io.Serializable;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

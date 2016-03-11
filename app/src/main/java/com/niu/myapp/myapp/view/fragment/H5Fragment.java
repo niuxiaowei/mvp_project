@@ -16,8 +16,8 @@ import com.niu.myapp.myapp.common.util.ToastUtil;
 import com.niu.myapp.myapp.internal.di.components.DaggerH5Component;
 import com.niu.myapp.myapp.internal.di.components.H5Component;
 import com.niu.myapp.myapp.internal.di.modules.H5Module;
-import com.niu.myapp.myapp.model.html5.JavaJSBridge;
-import com.niu.myapp.myapp.model.html5.JavascriptInterfaceKey;
+import com.niu.myapp.myapp.data.jsdata.JavaJSBridge;
+import com.niu.myapp.myapp.data.jsdata.JavascriptInterfaceKey;
 import com.niu.myapp.myapp.presenter.H5Presenter;
 import com.niu.myapp.myapp.view.compnent.IH5View;
 

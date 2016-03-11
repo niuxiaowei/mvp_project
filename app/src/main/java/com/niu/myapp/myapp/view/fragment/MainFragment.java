@@ -125,6 +125,11 @@ public class MainFragment extends BaseFragment implements IMainView,DialogInterf
         public void initView() {
 
         }
+
+        @Override
+        public void showGitHubUser(String userName) {
+
+        }
     }
 
     @Override

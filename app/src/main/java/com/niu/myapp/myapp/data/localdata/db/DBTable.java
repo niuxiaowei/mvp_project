@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.niu.myapp.myapp.model.localdata.db;
+package com.niu.myapp.myapp.data.localdata.db;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

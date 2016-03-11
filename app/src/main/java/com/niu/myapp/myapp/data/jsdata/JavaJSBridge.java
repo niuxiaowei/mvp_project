@@ -1,4 +1,4 @@
-package com.niu.myapp.myapp.model.html5;
+package com.niu.myapp.myapp.data.jsdata;
 
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
@@ -42,7 +42,7 @@ public  class JavaJSBridge{
     /**
      * @param webView
      * @param bridgeCallback
-     * @param allJavascriptInterfaces 调用{@link com.niu.myapp.myapp.model.html5.JavaJSBridge.JavascriptInterfacesBuilder}进行生成
+     * @param allJavascriptInterfaces 调用{@link com.niu.myapp.myapp.data.jsdata.JavaJSBridge.JavascriptInterfacesBuilder}进行生成
      */
     public JavaJSBridge(WebView webView ,  final IBridgeListener bridgeListener,Set<JavaJSInterfaces> allJavascriptInterfaces){
         this.mWebView = webView;

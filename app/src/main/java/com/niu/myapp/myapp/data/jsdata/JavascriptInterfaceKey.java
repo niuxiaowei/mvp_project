@@ -1,6 +1,4 @@
-package com.niu.myapp.myapp.model.html5;
-
-import android.webkit.JavascriptInterface;
+package com.niu.myapp.myapp.data.jsdata;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

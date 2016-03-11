@@ -1,10 +1,9 @@
 package com.niu.myapp.myapp.presenter;
 
 import com.niu.myapp.myapp.common.util.DLog;
-import com.niu.myapp.myapp.model.interactor.FriendUserCase;
-import com.niu.myapp.myapp.model.localdata.FriendModel;
-import com.niu.myapp.myapp.model.localdata.db.user.UserDatabase;
-import com.niu.myapp.myapp.model.remotedata.User;
+import com.niu.myapp.myapp.data.interactor.FriendUserCase;
+import com.niu.myapp.myapp.data.entity.FriendEntity;
+import com.niu.myapp.myapp.data.entity.GitHubUserEntity;
 import com.niu.myapp.myapp.presenter.mapper.FriendModelDataMapper;
 import com.niu.myapp.myapp.view.compnent.IFriendListView;
 import com.niu.myapp.myapp.view.data.Friend;
@@ -41,7 +40,7 @@ public class FriendListPresenter extends BasePresenter implements Presenter {
         if(mFriendListView != null){
             mFriendListView.initView();
         }
-        mFriendUserCase.getFriends(LOGIN_USERID,new Subscriber<List<FriendModel>>() {
+        mFriendUserCase.getFriends(LOGIN_USERID,new Subscriber<List<FriendEntity>>() {
             @Override
             public void onCompleted() {
 
@@ -53,12 +52,11 @@ public class FriendListPresenter extends BasePresenter implements Presenter {
             }
 
             @Override
-            public void onNext(List<FriendModel> friendModels) {
-                mFriendListView.bindDataForView(mFriends = FriendModelDataMapper.mapFriendModels(friendModels));
+            public void onNext(List<FriendEntity> friendEntities) {
+                mFriendListView.bindDataForView(mFriends = FriendModelDataMapper.mapFriendModels(friendEntities));
             }
         });
 
-        getGitHubUser("niuxiaowei");
     }
 
     @Override
@@ -79,8 +77,8 @@ public class FriendListPresenter extends BasePresenter implements Presenter {
     public void saveFriends(final List<Friend> friends){
         if(friends != null && friends.size() > 0){
 
-            List<FriendModel> friendModels = FriendModelDataMapper.mapFriends(friends);
-            mFriendUserCase.saveFriends(friendModels, new Subscriber<Integer>() {
+            List<FriendEntity> friendEntities = FriendModelDataMapper.mapFriends(friends);
+            mFriendUserCase.saveFriends(friendEntities, new Subscriber<Integer>() {
                 @Override
                 public void onCompleted() {
 
@@ -100,8 +98,9 @@ public class FriendListPresenter extends BasePresenter implements Presenter {
         }
     }
 
-    private void getGitHubUser(String userName){
-        mFriendUserCase.getGitHubUser(userName, new Subscriber<User>() {
+    public void getGitHubUser(String userName){
+
+        mFriendUserCase.getGitHubUser(userName, new Subscriber<GitHubUserEntity>() {
             @Override
             public void onCompleted() {
                 DLog.i("test","  onCompleted");
@@ -114,8 +113,9 @@ public class FriendListPresenter extends BasePresenter implements Presenter {
             }
 
             @Override
-            public void onNext(User user) {
-                DLog.i("test","  user="+user.getLogin());
+            public void onNext(GitHubUserEntity gitHubUserEntity) {
+                mFriendListView.showGitHubUser(gitHubUserEntity.getLogin());
+                DLog.i("test","  gitHubUserEntity="+ gitHubUserEntity.getLogin());
             }
         });
     }

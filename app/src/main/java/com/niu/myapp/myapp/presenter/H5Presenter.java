@@ -9,8 +9,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.niu.myapp.myapp.common.util.DLog;
-import com.niu.myapp.myapp.model.html5.JavaJSBridge;
-import com.niu.myapp.myapp.model.html5.JavascriptInterfaceKey;
+import com.niu.myapp.myapp.data.jsdata.JavaJSBridge;
+import com.niu.myapp.myapp.data.jsdata.JavascriptInterfaceKey;
 import com.niu.myapp.myapp.view.compnent.IH5View;
 import com.niu.myapp.myapp.view.executor.NormalThreadExecutor;
 import com.niu.myapp.myapp.view.executor.UIThreadExecutor;
@@ -168,7 +168,7 @@ public class  H5Presenter  extends BasePresenter implements Presenter ,JavaJSBri
             @Override
             public void onReceivedError(WebView view, int errorCode,
                                         String description, String failingUrl) {
-//                DLog.e("html5", "webview receive error: " + description);
+//                DLog.e("jsdata", "webview receive error: " + description);
                 super.onReceivedError(view, errorCode, description, failingUrl);
 //                mWebViewReceivedError = true;
             }

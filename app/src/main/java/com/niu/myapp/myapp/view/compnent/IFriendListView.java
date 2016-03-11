@@ -8,4 +8,6 @@ import java.util.List;
  * Created by niuxiaowei on 2015/11/16.
  */
 public interface IFriendListView extends IView<List<Friend>> {
+
+    void showGitHubUser(String userName);
 }

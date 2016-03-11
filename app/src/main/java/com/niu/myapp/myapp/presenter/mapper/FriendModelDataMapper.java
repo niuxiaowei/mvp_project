@@ -1,6 +1,6 @@
 package com.niu.myapp.myapp.presenter.mapper;
 
-import com.niu.myapp.myapp.model.localdata.FriendModel;
+import com.niu.myapp.myapp.data.entity.FriendEntity;
 import com.niu.myapp.myapp.view.data.Friend;
 
 import java.util.ArrayList;
@@ -14,44 +14,44 @@ public class FriendModelDataMapper {
     /**
      * FriendModel映射为Friend
      *
-     * @param friendModel
+     * @param friendEntity
      * @return
      */
-    public static Friend map(FriendModel friendModel) {
+    public static Friend map(FriendEntity friendEntity) {
 
-        if (friendModel != null) {
+        if (friendEntity != null) {
             Friend result = new Friend();
-            result.mId = friendModel._id;
-            result.mName = friendModel.mUserName;
-            result.mUserId = friendModel.mUserId;
-            result.mLoginId = friendModel.mLoginUserId;
+            result.mId = friendEntity._id;
+            result.mName = friendEntity.mUserName;
+            result.mUserId = friendEntity.mUserId;
+            result.mLoginId = friendEntity.mLoginUserId;
             return result;
         }
         return null;
     }
 
     /**
-     * List<FriendModel>映射为List<Friend>
-     * @param friendModels
+     * List<FriendEntity>映射为List<Friend>
+     * @param friendEntities
      * @return
      */
-    public static List<Friend> mapFriendModels(List<FriendModel> friendModels) {
+    public static List<Friend> mapFriendModels(List<FriendEntity> friendEntities) {
 
-        if (friendModels != null && friendModels.size() > 0) {
-            List<Friend> result = new ArrayList<>(friendModels.size());
-            for (int i = 0; i < friendModels.size(); i++) {
+        if (friendEntities != null && friendEntities.size() > 0) {
+            List<Friend> result = new ArrayList<>(friendEntities.size());
+            for (int i = 0; i < friendEntities.size(); i++) {
 
-                result.add(map(friendModels.get(i)));
+                result.add(map(friendEntities.get(i)));
             }
             return result;
         }
         return null;
     }
 
-    public static List<FriendModel> mapFriends(List<Friend> friends) {
+    public static List<FriendEntity> mapFriends(List<Friend> friends) {
 
         if (friends != null && friends.size() > 0) {
-            List<FriendModel> result = new ArrayList<>(friends.size());
+            List<FriendEntity> result = new ArrayList<>(friends.size());
             for (int i = 0; i < friends.size(); i++) {
 
                 result.add(map(friends.get(i)));
@@ -61,10 +61,10 @@ public class FriendModelDataMapper {
         return null;
     }
 
-    public static FriendModel map(Friend friend) {
+    public static FriendEntity map(Friend friend) {
 
         if (friend != null) {
-            FriendModel result = new FriendModel();
+            FriendEntity result = new FriendEntity();
             result._id = friend.mId;
             result.mUserName = friend.mName;
             result.mUserId = friend.mUserId;

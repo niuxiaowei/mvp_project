@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.niu.myapp.myapp.model.localdata.db;
+package com.niu.myapp.myapp.data.localdata.db;
 
 /**
  * Model 类基类。该类的子类通过添加 {@link DBTable} 和 {@link DBColumn} 标注，可代表数据库中的某张表。

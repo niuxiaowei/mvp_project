@@ -1,4 +1,4 @@
-package com.niu.myapp.myapp.model.remotedata;
+package com.niu.myapp.myapp.data.remotedata;
 
 
 import com.niu.myapp.myapp.BuildConfig;

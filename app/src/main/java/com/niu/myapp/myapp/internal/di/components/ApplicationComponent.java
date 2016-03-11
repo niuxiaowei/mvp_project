@@ -2,12 +2,11 @@ package com.niu.myapp.myapp.internal.di.components;
 
 import android.content.Context;
 
+import com.niu.myapp.myapp.data.localdata.db.user.UserDatabase;
 import com.niu.myapp.myapp.internal.di.modules.ApplicationModule;
-import com.niu.myapp.myapp.internal.di.modules.SubFriendsModule;
-import com.niu.myapp.myapp.model.datasource.FriendDatastoreFactory;
+import com.niu.myapp.myapp.data.datastore.FriendDatastoreFactory;
 import com.niu.myapp.myapp.view.Navigator;
 import com.niu.myapp.myapp.view.activity.BaseActivity;
-import com.niu.myapp.myapp.view.activity.MainActivity;
 import com.niu.myapp.myapp.view.executor.NormalThreadExecutor;
 import com.niu.myapp.myapp.view.executor.UIThreadExecutor;
 
@@ -23,7 +22,7 @@ import javax.inject.Singleton;
 public interface ApplicationComponent {
     void inject(BaseActivity baseActivity);
 
-    //Exposed to sub-graphs.
+    //以下暴漏的方法主要是给子component爆漏的
     Context context();
 
     Navigator getNavigator();
@@ -32,6 +31,8 @@ public interface ApplicationComponent {
     NormalThreadExecutor getNormalThreadExecutor();
     //不能去掉否则出错，
     FriendDatastoreFactory getFriendDatastoreFactory();
+    UserDatabase getUserDatabase();
+
     //subFriendComponent其实是所在类的一个内部类
 //    SubFriendsComponent getSubFriendsComponent(SubFriendsModule module);
 }
