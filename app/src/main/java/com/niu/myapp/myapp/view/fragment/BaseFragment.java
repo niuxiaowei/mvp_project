@@ -67,14 +67,7 @@ public abstract class BaseFragment extends Fragment {
      */
     protected abstract void onInitPresenters();
 
-    protected  void onInitViews(){
-        for (Presenter presenter:mAllPresenters
-                ) {
-            if(presenter != null){
-                presenter.initView();
-            }
-        }
-    }
+
 
 
     @Override
@@ -87,10 +80,8 @@ public abstract class BaseFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mDialogFactory = new DialogFactory(getChildFragmentManager(),savedInstanceState);
         mDialogFactory.restoreDialogListener(this);
-        onInitializeInjector();
         onInjectFragment();
         onAddPresenters();
-        onInitViews();
         onInitPresenters();
 
     }
@@ -138,13 +129,6 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
-
-
-
-    /**
-     * 初始化注入器,父类会调用该方法，具体实现需要子类来实现
-     */
-    protected abstract  void onInitializeInjector();
 
     /**
      * 注入fragment，需要子类来实现,父类会调用该方法

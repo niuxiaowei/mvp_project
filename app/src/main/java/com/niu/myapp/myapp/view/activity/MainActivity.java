@@ -45,6 +45,11 @@ public class MainActivity extends BaseActivity {
                     public void function() {
                         getApplicationComponent().getNavigator().toFriendsActivity(MainActivity.this);
                     }
+                }).addFunction(new Functions.FunctionNoParamAndResult("rxbus") {
+                    @Override
+                    public void function() {
+                        getApplicationComponent().getNavigator().toRXBusExa(MainActivity.this);
+                    }
                 }));
 
         }

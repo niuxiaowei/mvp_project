@@ -1,11 +1,15 @@
 package com.niu.myapp.myapp.presenter;
 
+import com.niu.myapp.myapp.common.util.DLog;
 import com.niu.myapp.myapp.model.interactor.FriendUserCase;
 import com.niu.myapp.myapp.model.localdata.FriendModel;
 import com.niu.myapp.myapp.model.localdata.db.user.UserDatabase;
+import com.niu.myapp.myapp.model.remotedata.User;
 import com.niu.myapp.myapp.presenter.mapper.FriendModelDataMapper;
 import com.niu.myapp.myapp.view.compnent.IFriendListView;
 import com.niu.myapp.myapp.view.data.Friend;
+import com.niu.myapp.myapp.view.executor.NormalThreadExecutor;
+import com.niu.myapp.myapp.view.executor.UIThreadExecutor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,20 +24,20 @@ import rx.Subscriber;
 public class FriendListPresenter extends BasePresenter implements Presenter {
 
     private List<Friend> mFriends = new ArrayList<>();
-    private FriendUserCase mFriendUserCase = new FriendUserCase();
+    private FriendUserCase mFriendUserCase;
     //test
     public static final String LOGIN_USERID = "111";
 
     @Inject
-    public FriendListPresenter(IFriendListView friendListView) {
-        super();
-        this.mFriendListView = friendListView;
+    public FriendListPresenter(UIThreadExecutor uiThreadExecutor, NormalThreadExecutor normalThreadExecutor, FriendUserCase friendUserCase) {
+        super(uiThreadExecutor,normalThreadExecutor);
+        this.mFriendUserCase = friendUserCase;
     }
 
     private IFriendListView mFriendListView;
 
-    @Override
-    public void initView() {
+    public void initView(IFriendListView friendListView) {
+        this.mFriendListView = friendListView;
         if(mFriendListView != null){
             mFriendListView.initView();
         }
@@ -53,6 +57,8 @@ public class FriendListPresenter extends BasePresenter implements Presenter {
                 mFriendListView.bindDataForView(mFriends = FriendModelDataMapper.mapFriendModels(friendModels));
             }
         });
+
+        getGitHubUser("niuxiaowei");
     }
 
     @Override
@@ -92,6 +98,26 @@ public class FriendListPresenter extends BasePresenter implements Presenter {
                 }
             });
         }
+    }
+
+    private void getGitHubUser(String userName){
+        mFriendUserCase.getGitHubUser(userName, new Subscriber<User>() {
+            @Override
+            public void onCompleted() {
+                DLog.i("test","  onCompleted");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                DLog.i("test","  onError e="+e.getMessage());
+
+            }
+
+            @Override
+            public void onNext(User user) {
+                DLog.i("test","  user="+user.getLogin());
+            }
+        });
     }
 
 

@@ -13,12 +13,13 @@ public class LoginPresenter  extends BasePresenter implements Presenter {
 
     private ILoginView mLoginView;
 
-    public LoginPresenter(ILoginView loginView){
-        this.mLoginView = loginView;
+    @Inject
+    public LoginPresenter(UIThreadExecutor uiThreadExecutor, NormalThreadExecutor normalThreadExecutor){
+        super(uiThreadExecutor,normalThreadExecutor);
     }
 
-    @Override
-    public void initView() {
+    public void initView(ILoginView loginView) {
+        this.mLoginView = loginView;
         mLoginView.initView();
     }
 

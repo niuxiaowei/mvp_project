@@ -3,9 +3,13 @@ package com.niu.myapp.myapp.internal.di.components;
 import android.content.Context;
 
 import com.niu.myapp.myapp.internal.di.modules.ApplicationModule;
+import com.niu.myapp.myapp.internal.di.modules.SubFriendsModule;
+import com.niu.myapp.myapp.model.datasource.FriendDatastoreFactory;
 import com.niu.myapp.myapp.view.Navigator;
 import com.niu.myapp.myapp.view.activity.BaseActivity;
 import com.niu.myapp.myapp.view.activity.MainActivity;
+import com.niu.myapp.myapp.view.executor.NormalThreadExecutor;
+import com.niu.myapp.myapp.view.executor.UIThreadExecutor;
 
 import dagger.Component;
 import javax.inject.Singleton;
@@ -23,4 +27,11 @@ public interface ApplicationComponent {
     Context context();
 
     Navigator getNavigator();
+
+    UIThreadExecutor getUIThreadExecutor();
+    NormalThreadExecutor getNormalThreadExecutor();
+    //不能去掉否则出错，
+    FriendDatastoreFactory getFriendDatastoreFactory();
+    //subFriendComponent其实是所在类的一个内部类
+//    SubFriendsComponent getSubFriendsComponent(SubFriendsModule module);
 }

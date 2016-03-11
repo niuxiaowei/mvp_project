@@ -19,6 +19,8 @@ import dagger.Component;
 public interface MainComponent {
     void inject(MainFragment fragment);
 
+
+
     MainPresenter getMainPresenter();
     LoginPresenter getLoginPresenter();
     FriendListPresenter getFriendListPresenter();

@@ -13,6 +13,9 @@ import android.widget.TextView;
 
 import com.niu.myapp.myapp.R;
 import com.niu.myapp.myapp.common.util.ToastUtil;
+import com.niu.myapp.myapp.internal.di.components.DaggerH5Component;
+import com.niu.myapp.myapp.internal.di.components.H5Component;
+import com.niu.myapp.myapp.internal.di.modules.H5Module;
 import com.niu.myapp.myapp.model.html5.JavaJSBridge;
 import com.niu.myapp.myapp.model.html5.JavascriptInterfaceKey;
 import com.niu.myapp.myapp.presenter.H5Presenter;
@@ -20,43 +23,37 @@ import com.niu.myapp.myapp.view.compnent.IH5View;
 
 import java.util.HashSet;
 
+import javax.inject.Inject;
+
 /**
  * Created by niuxiaowei on 2015/11/24.
  */
-public class H5Fragment extends BaseFragment implements IH5View,H5Presenter.IJavaJSInterfaces {
+public class H5Fragment extends BaseFragment implements IH5View, H5Presenter.IJavaJSInterfaces {
 
+    public static final String EXTRA_WEB_URL_KEY = "web_url";
+    @Inject
+    H5Presenter mPresenter;
     private WebView mWebView;
-
-
-    private H5Presenter mPresenter;
+    private H5Component mH5Component;
     private TextView mTitleView;
     private String mUrl;
 
-    public static final String EXTRA_WEB_URL_KEY = "web_url";
-
-
-
     @Override
     protected void onAddPresenters() {
-        mPresenter = new H5Presenter(this);
-
         addPresenter(mPresenter);
     }
 
     @Override
     protected void onInitPresenters() {
 
-        mPresenter.init(mWebView,this);
+        mPresenter.init(mWebView, this);
     }
 
-    @Override
-    protected void onInitializeInjector() {
-
-    }
 
     @Override
     protected void onInjectFragment() {
-
+        mH5Component = DaggerH5Component.builder().applicationComponent(mBaseActivity.getApplicationComponent()).h5Module(new H5Module()).build();
+        mH5Component.inject(this);
     }
 
     @Override
@@ -67,7 +64,7 @@ public class H5Fragment extends BaseFragment implements IH5View,H5Presenter.IJav
 
     @Override
     public void onHtml5PageIsOK() {
-        if(mPresenter != null){
+        if (mPresenter != null) {
 
             mPresenter.getTitle();
         }
@@ -86,14 +83,14 @@ public class H5Fragment extends BaseFragment implements IH5View,H5Presenter.IJav
 
     @Override
     public void initView() {
-        mTitleView = (TextView)getView().findViewById(R.id.title);
+        mTitleView = (TextView) getView().findViewById(R.id.title);
 
         //将WebView实例化
         mWebView = (WebView) getView().findViewById(R.id.webview);
 
 
         parseArgs();
-        if(mUrl != null){
+        if (mUrl != null) {
             mWebView.loadUrl(mUrl);
         }
 
@@ -102,9 +99,9 @@ public class H5Fragment extends BaseFragment implements IH5View,H5Presenter.IJav
     /**
      * 解析别的页面传入的参数
      */
-    private void parseArgs(){
+    private void parseArgs() {
         Bundle args = getArguments();
-        if(args != null){
+        if (args != null) {
             mUrl = args.getString(EXTRA_WEB_URL_KEY);
 
         }
@@ -113,7 +110,7 @@ public class H5Fragment extends BaseFragment implements IH5View,H5Presenter.IJav
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_h5,container,false);
+        return inflater.inflate(R.layout.fragment_h5, container, false);
     }
 
     @Override
@@ -128,8 +125,8 @@ public class H5Fragment extends BaseFragment implements IH5View,H5Presenter.IJav
              */
             @JavascriptInterfaceKey("onNavi")
             @JavascriptInterface
-            public void onNavi(String lat, String lng){
-                ToastUtil.showLong(mBaseActivity,"开始导航 lat="+lat+" lng="+lng);
+            public void onNavi(String lat, String lng) {
+                ToastUtil.showLong(mBaseActivity, "开始导航 lat=" + lat + " lng=" + lng);
             }
 
         });

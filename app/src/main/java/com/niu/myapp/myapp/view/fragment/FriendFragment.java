@@ -10,9 +10,11 @@ import android.view.ViewGroup;
 
 import com.niu.myapp.myapp.R;
 import com.niu.myapp.myapp.common.util.ToastUtil;
+import com.niu.myapp.myapp.internal.di.components.DaggerFragmentInjectComponent;
 import com.niu.myapp.myapp.internal.di.components.DaggerFriendsComponent;
 import com.niu.myapp.myapp.internal.di.components.FriendsComponent;
 import com.niu.myapp.myapp.internal.di.modules.FriendsModule;
+import com.niu.myapp.myapp.internal.di.modules.SubFriendsModule;
 import com.niu.myapp.myapp.presenter.FriendListPresenter;
 import com.niu.myapp.myapp.view.adapter.FriendAdapter;
 import com.niu.myapp.myapp.view.compnent.IFriendListView;
@@ -24,15 +26,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.inject.Inject;
+
 import static com.niu.myapp.myapp.view.adapter.FriendAdapter.*;
 
 /**
  * Created by niuxiaowei on 2016/1/19.
  */
 public class FriendFragment extends BaseFragment implements IFriendListView,ConfirmDialogFragment.ConfirmDialogListener{
-    private FriendsComponent mFriendsComponent;
     private RecyclerView mRecyclerView;
     private FriendAdapter mAdapter;
+    @Inject
+    FriendListPresenter mPresenter;
     private FriendsListener mListener = new FriendsListener(){
 
         Friend longClickFriend ;
@@ -50,25 +55,22 @@ public class FriendFragment extends BaseFragment implements IFriendListView,Conf
     @Override
     protected void onAddPresenters() {
 
-        addPresenter(mFriendsComponent.getFriendListPresenter());
+        addPresenter(mPresenter);
     }
 
     @Override
     protected void onInitPresenters() {
-        this.mFriendsComponent.getFriendListPresenter().initView();
+        mPresenter.initView(this);
     }
 
-    @Override
-    protected void onInitializeInjector() {
-
-                this.mFriendsComponent = DaggerFriendsComponent.builder()
-                        .applicationComponent(mBaseActivity.getApplicationComponent())
-                        .friendsModule(new FriendsModule(this)).build();
-    }
 
     @Override
     protected void onInjectFragment() {
-        this.mFriendsComponent.inject(this);
+//         DaggerFriendsComponent.builder()
+//                .applicationComponent(mBaseActivity.getApplicationComponent())
+//                .friendsModule(new FriendsModule()).build().inject(this);
+        DaggerFragmentInjectComponent.builder().applicationComponent(mBaseActivity.getApplicationComponent()).build().injectFriendsFragment(this);
+//        mBaseActivity.getApplicationComponent().getSubFriendsComponent(new SubFriendsModule()).injectFragment(this);
     }
 
     @Override
@@ -96,7 +98,7 @@ public class FriendFragment extends BaseFragment implements IFriendListView,Conf
                     f.mAge = 20;
                     fs.add(f);
                 }
-                mFriendsComponent.getFriendListPresenter().saveFriends(fs);
+                mPresenter.saveFriends(fs);
             }
         });
 

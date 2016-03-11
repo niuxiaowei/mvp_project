@@ -8,11 +8,19 @@ import com.niu.myapp.myapp.view.executor.UIThreadExecutor;
  */
 public class BasePresenter {
 
+    protected UIThreadExecutor mUIThreadExecutor;
+    protected NormalThreadExecutor mNormalThreadExeutor;
+
+    public BasePresenter(UIThreadExecutor uiThreadExecutor, NormalThreadExecutor normalThreadExecutor){
+        this.mNormalThreadExeutor = normalThreadExecutor;
+        this.mUIThreadExecutor = uiThreadExecutor;
+    }
+
     protected void executTaskOnUIThread(Runnable task){
-        UIThreadExecutor.getExecutor().execute(task);
+        mUIThreadExecutor.execute(task);
     }
 
     protected void executTaskOnNormalThread(Runnable task){
-        NormalThreadExecutor.getExecutor().execute(task);
+        mUIThreadExecutor.execute(task);
     }
 }

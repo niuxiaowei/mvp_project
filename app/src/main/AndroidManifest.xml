@@ -24,6 +24,7 @@
 
         <activity android:name=".view.activity.H5Activity"></activity>
         <activity android:name=".view.activity.FriendActivity"></activity>
+        <activity android:name=".view.activity.RXBusExampleActivity"></activity>
 
         <!--微信支付结果回调页面-->
         <activity

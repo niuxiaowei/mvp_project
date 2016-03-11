@@ -3,7 +3,10 @@ package com.niu.myapp.myapp.internal.di.modules;
 import android.content.Context;
 
 import com.niu.myapp.myapp.BaseApplication;
+import com.niu.myapp.myapp.model.datasource.FriendDatastoreFactory;
 import com.niu.myapp.myapp.view.Navigator;
+import com.niu.myapp.myapp.view.executor.NormalThreadExecutor;
+import com.niu.myapp.myapp.view.executor.UIThreadExecutor;
 
 import dagger.Module;
 import dagger.Provides;
@@ -26,5 +29,20 @@ public class ApplicationModule {
 
     @Provides @Singleton Navigator provideNavigator() {
         return new Navigator();
+    }
+
+    @Provides @Singleton
+    NormalThreadExecutor provideNormalThreadExecutor(){
+        return new NormalThreadExecutor();
+    }
+
+    @Provides @Singleton
+    UIThreadExecutor provideUIThreadExecutor(){
+        return new UIThreadExecutor();
+    }
+
+    @Provides @Singleton
+    public FriendDatastoreFactory provideFriendDatastoreFactory(){
+        return new FriendDatastoreFactory();
     }
 }

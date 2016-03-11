@@ -3,6 +3,8 @@ package com.niu.myapp.myapp.internal.di.modules;
 import com.niu.myapp.myapp.internal.di.PerActivity;
 import com.niu.myapp.myapp.presenter.MainPresenter;
 import com.niu.myapp.myapp.view.compnent.IMainView;
+import com.niu.myapp.myapp.view.executor.NormalThreadExecutor;
+import com.niu.myapp.myapp.view.executor.UIThreadExecutor;
 
 import dagger.Module;
 import dagger.Provides;
@@ -12,17 +14,6 @@ import dagger.Provides;
  */
 @Module
 public class MainModule {
-
-    private IMainView mMainView;
-
-    public MainModule(IMainView mainView){
-        this.mMainView = mainView;
-    }
-
-    @Provides @PerActivity
-    MainPresenter provideMainPresenter(){
-        return new MainPresenter(mMainView);
-    }
 
 
 }

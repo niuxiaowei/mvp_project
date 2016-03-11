@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.niu.myapp.myapp.view.activity.FriendActivity;
 import com.niu.myapp.myapp.view.activity.H5Activity;
+import com.niu.myapp.myapp.view.activity.RXBusExampleActivity;
 
 import javax.inject.Inject;
 
@@ -23,6 +24,11 @@ public class Navigator {
 
     public void toFriendsActivity(Context context){
         Intent toF = new Intent(context,FriendActivity.class);
+        context.startActivity(toF);
+    }
+
+    public void toRXBusExa(Context context){
+        Intent toF = new Intent(context,RXBusExampleActivity.class);
         context.startActivity(toF);
     }
 }

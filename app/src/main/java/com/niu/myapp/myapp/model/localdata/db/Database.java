@@ -194,6 +194,9 @@ public abstract class Database {
      * 子类应实现该方法返回数据库中包含的所有的表对应的 Java Model 类
      */
     protected abstract List<Class<? extends ORMModel>> getDBTables();
+
+
+
     
     /**
      * 创建数据库，在需要创建数据库时自动调用。该方法内部会自动建表，子类最好不要覆盖该方法。

@@ -6,6 +6,9 @@ import com.niu.myapp.myapp.common.http.image.ImageLoaderProxy;
 import com.niu.myapp.myapp.internal.di.components.ApplicationComponent;
 import com.niu.myapp.myapp.internal.di.components.DaggerApplicationComponent;
 import com.niu.myapp.myapp.internal.di.modules.ApplicationModule;
+import com.niu.myapp.myapp.model.datasource.FriendDatastoreFactory;
+
+import javax.inject.Inject;
 
 /**
  * Created by niuxiaowei on 2015/10/13.
@@ -13,6 +16,8 @@ import com.niu.myapp.myapp.internal.di.modules.ApplicationModule;
 public class BaseApplication extends Application {
 
     private ApplicationComponent applicationComponent;
+    @Inject
+    FriendDatastoreFactory mfriend;
 
     @Override
     public void onCreate() {

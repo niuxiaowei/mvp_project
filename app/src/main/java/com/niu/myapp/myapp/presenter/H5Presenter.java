@@ -12,16 +12,19 @@ import com.niu.myapp.myapp.common.util.DLog;
 import com.niu.myapp.myapp.model.html5.JavaJSBridge;
 import com.niu.myapp.myapp.model.html5.JavascriptInterfaceKey;
 import com.niu.myapp.myapp.view.compnent.IH5View;
+import com.niu.myapp.myapp.view.executor.NormalThreadExecutor;
 import com.niu.myapp.myapp.view.executor.UIThreadExecutor;
 
 import java.util.HashSet;
+
+import javax.inject.Inject;
 
 
 /**
  * Created by niuxiaowei on 2015/10/23.
  * html5的presenter主持类，涉及到html5与nativ之间的交互
  */
-public class    H5Presenter  implements Presenter ,JavaJSBridge.IBridgeListener {
+public class  H5Presenter  extends BasePresenter implements Presenter ,JavaJSBridge.IBridgeListener {
 
     private WebView mWebView;
     private IH5View mIH5View;
@@ -29,12 +32,17 @@ public class    H5Presenter  implements Presenter ,JavaJSBridge.IBridgeListener 
 
     private IJavaJSInterfaces mIJavascriptInterfaces;
 
+    @Inject
+    public H5Presenter(UIThreadExecutor uiThreadExecutor, NormalThreadExecutor normalThreadExecutor){
+        super(uiThreadExecutor,normalThreadExecutor);
+    }
+
     private CommonJavascriptInterfaces mCommonJSInterfaces = new CommonJavascriptInterfaces("common");
 
     @Override
     public void onBridgePrepared() {
 
-        UIThreadExecutor.getExecutor().execute(new Runnable() {
+        mUIThreadExecutor.execute(new Runnable() {
             @Override
             public void run() {
                 mIH5View.onHtml5PageIsOK();
@@ -67,7 +75,7 @@ public class    H5Presenter  implements Presenter ,JavaJSBridge.IBridgeListener 
         @JavascriptInterface
         @JavascriptInterfaceKey(value = JAVA_INTERFACE_ON_GET_TITLE_KEY)
         public void onGetTitle(final String title) {
-            UIThreadExecutor.getExecutor().execute(new Runnable() {
+            mUIThreadExecutor.execute(new Runnable() {
                 @Override
                 public void run() {
                     if (mIH5View != null) {
@@ -85,7 +93,7 @@ public class    H5Presenter  implements Presenter ,JavaJSBridge.IBridgeListener 
         @JavascriptInterfaceKey(value = JAVA_INTERFACE_ON_CALL_KEY)
         public void onCall(final String phoneNum) {
 
-            UIThreadExecutor.getExecutor().execute(new Runnable() {
+            mUIThreadExecutor.execute(new Runnable() {
                 @Override
                 public void run() {
 
@@ -98,15 +106,11 @@ public class    H5Presenter  implements Presenter ,JavaJSBridge.IBridgeListener 
     }
 
 
-    public H5Presenter(IH5View ih5View) {
 
+
+
+    public void initView(IH5View ih5View) {
         this.mIH5View = ih5View;
-    }
-
-
-    @Override
-    public void initView() {
-
         mIH5View.initView();
     }
 

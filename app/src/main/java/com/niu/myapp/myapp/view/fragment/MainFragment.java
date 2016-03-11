@@ -52,7 +52,8 @@ public class MainFragment extends BaseFragment implements IMainView,DialogInterf
 
     @Override
     protected void onInitPresenters() {
-
+        mMainComponent.getLoginPresenter().initView(new LoginView());
+        mMainComponent.getMainPresenter().initView(this);
     }
 
     @Override
@@ -107,6 +108,8 @@ public class MainFragment extends BaseFragment implements IMainView,DialogInterf
 //                ToastUtil.showLong(MainActivity.this,"00000000000000000000");
                 }
             });
+
+
         }
     }
 
@@ -148,6 +151,17 @@ public class MainFragment extends BaseFragment implements IMainView,DialogInterf
             }
         });
 
+        getView().findViewById(R.id.to_rxbus).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    mFunctions.invokeFunc("rxbus");
+                } catch (FunctionException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         getView().findViewById(R.id.to_friends).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,17 +187,14 @@ public class MainFragment extends BaseFragment implements IMainView,DialogInterf
 
     }
 
-    @Override
-    protected void onInitializeInjector() {
-        this.mMainComponent = DaggerMainComponent.builder()
-                .applicationComponent(mBaseActivity.getApplicationComponent())
-                .mainModule(new MainModule(this))
-                .friendsModule(new FriendsModule(new FriendListView()))
-                .loginModule(new LoginModule(new LoginView())).build();
-    }
 
     @Override
     protected void onInjectFragment() {
+        this.mMainComponent = DaggerMainComponent.builder()
+                .applicationComponent(mBaseActivity.getApplicationComponent())
+                .mainModule(new MainModule())
+                .friendsModule(new FriendsModule())
+                .loginModule(new LoginModule()).build();
         this.mMainComponent.inject(this);
     }
 

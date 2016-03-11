@@ -1,6 +1,8 @@
 package com.niu.myapp.myapp.presenter;
 
 import com.niu.myapp.myapp.view.compnent.IMainView;
+import com.niu.myapp.myapp.view.executor.NormalThreadExecutor;
+import com.niu.myapp.myapp.view.executor.UIThreadExecutor;
 
 import javax.inject.Inject;
 
@@ -9,18 +11,16 @@ import javax.inject.Inject;
  */
 public class MainPresenter  extends BasePresenter implements Presenter {
 
-    public MainPresenter(IMainView mainView) {
-        super();
-        this.mMainView = mainView;
+    @Inject
+    public MainPresenter(UIThreadExecutor uiThreadExecutor, NormalThreadExecutor normalThreadExecutor) {
+        super(uiThreadExecutor,normalThreadExecutor);
     }
 
     private IMainView mMainView;
 
-    @Override
-    public void initView() {
-        if(mMainView != null){
-            mMainView.initView();
-        }
+    public void initView(IMainView mainView) {
+        this.mMainView = mainView;
+        mMainView.initView();
     }
 
     @Override

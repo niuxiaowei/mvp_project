@@ -1,8 +1,11 @@
 package com.niu.myapp.myapp.internal.di.modules;
 
 import com.niu.myapp.myapp.internal.di.PerActivity;
+import com.niu.myapp.myapp.model.interactor.FriendUserCase;
 import com.niu.myapp.myapp.presenter.FriendListPresenter;
 import com.niu.myapp.myapp.view.compnent.IFriendListView;
+import com.niu.myapp.myapp.view.executor.NormalThreadExecutor;
+import com.niu.myapp.myapp.view.executor.UIThreadExecutor;
 
 import dagger.Module;
 import dagger.Provides;
@@ -13,16 +16,9 @@ import dagger.Provides;
 @Module
 public class FriendsModule {
 
-    private  IFriendListView mView;
 
-    public FriendsModule(IFriendListView view) {
+    public FriendsModule() {
         super();
-        this.mView = view;
     }
 
-    @Provides
-    @PerActivity
-    FriendListPresenter provideFriendListPresenter(){
-        return new FriendListPresenter(mView);
-    }
 }
