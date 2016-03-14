@@ -2,7 +2,9 @@ package com.niu.myapp.myapp;
 
 import android.app.Application;
 
-import com.niu.myapp.myapp.common.http.image.ImageLoaderProxy;
+
+import com.niu.myapp.myapp.common.image.ImageLoaderProxy;
+import com.niu.myapp.myapp.common.util.AppUtils;
 import com.niu.myapp.myapp.internal.di.components.ApplicationComponent;
 import com.niu.myapp.myapp.internal.di.components.DaggerApplicationComponent;
 import com.niu.myapp.myapp.internal.di.modules.ApplicationModule;

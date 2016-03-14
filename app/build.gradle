@@ -23,6 +23,8 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+        //解决aar之间重复包问题
+        multiDexEnabled true
     }
 
     sourceSets {
@@ -77,15 +79,18 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.1.1'
     compile 'com.android.support:recyclerview-v7:22.1.1'
     compile 'com.mcxiaoke.volley:library:1.0.19'
+
     //dagger start
     apt 'com.google.dagger:dagger-compiler:2.0'
     compile 'com.google.dagger:dagger:2.0'
     compile 'org.glassfish:javax.annotation:10.0-b28'
     //dagger end
+
     compile 'io.reactivex:rxjava:1.0.14'
-    //    compile project(':android-volley')
+
+
     //retrofit 2.0和gosn和 okhttp
-    compile ('com.squareup.retrofit2:retrofit:2.0.0-beta4') {
+    compile('com.squareup.retrofit2:retrofit:2.0.0-beta4') {
         // exclude Retrofit’s OkHttp peer-dependency module and define your own module import
         exclude module: 'okhttp'
     }
@@ -95,7 +100,7 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
     //retrofit add log
     compile 'com.squareup.okhttp3:logging-interceptor:3.0.1'
-
+    compile project(':common')
 }
 
 task mytest << {

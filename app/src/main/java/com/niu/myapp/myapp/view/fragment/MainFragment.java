@@ -12,7 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.niu.myapp.myapp.R;
-import com.niu.myapp.myapp.common.http.image.ImageLoaderProxy;
+import com.niu.myapp.myapp.common.image.ImageLoaderProxy;
 import com.niu.myapp.myapp.common.util.ToastUtil;
 import com.niu.myapp.myapp.internal.di.components.DaggerMainComponent;
 import com.niu.myapp.myapp.internal.di.components.MainComponent;
