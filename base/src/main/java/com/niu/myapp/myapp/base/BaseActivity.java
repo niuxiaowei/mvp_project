@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
 
-import com.niu.myapp.myapp.common.util.ToastUtil;
 import com.niu.myapp.myapp.ui.dialog.BaseDialogFragment;
 import com.niu.myapp.myapp.ui.dialog.DialogFactory;
 
@@ -46,16 +45,6 @@ public abstract class BaseActivity extends FragmentActivity implements BaseDialo
         mDialogFactory = new DialogFactory(getSupportFragmentManager(),savedInstanceState);
         mDialogFactory.restoreDialogListener(this);
     }
-
-
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ToastUtil.desotry();
-
-    }
-
 
 
 

@@ -22,6 +22,6 @@ public class BasePresenter {
     }
 
     protected void executTaskOnNormalThread(Runnable task){
-        mUIThreadExecutor.execute(task);
+        mNormalThreadExeutor.execute(task);
     }
 }
