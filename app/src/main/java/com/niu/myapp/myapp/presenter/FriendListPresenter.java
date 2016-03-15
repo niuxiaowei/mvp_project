@@ -1,5 +1,9 @@
 package com.niu.myapp.myapp.presenter;
 
+import com.niu.myapp.myapp.base.present.BasePresenter;
+import com.niu.myapp.myapp.base.present.Presenter;
+import com.niu.myapp.myapp.common.executor.NormalThreadExecutor;
+import com.niu.myapp.myapp.common.executor.UIThreadExecutor;
 import com.niu.myapp.myapp.common.util.DLog;
 import com.niu.myapp.myapp.data.interactor.FriendUserCase;
 import com.niu.myapp.myapp.data.entity.FriendEntity;
@@ -7,8 +11,6 @@ import com.niu.myapp.myapp.data.entity.GitHubUserEntity;
 import com.niu.myapp.myapp.presenter.mapper.FriendModelDataMapper;
 import com.niu.myapp.myapp.view.compnent.IFriendListView;
 import com.niu.myapp.myapp.view.data.Friend;
-import com.niu.myapp.myapp.view.executor.NormalThreadExecutor;
-import com.niu.myapp.myapp.view.executor.UIThreadExecutor;
 
 import java.util.ArrayList;
 import java.util.List;

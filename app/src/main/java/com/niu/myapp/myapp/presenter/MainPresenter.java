@@ -1,8 +1,10 @@
 package com.niu.myapp.myapp.presenter;
 
+import com.niu.myapp.myapp.base.present.BasePresenter;
+import com.niu.myapp.myapp.base.present.Presenter;
+import com.niu.myapp.myapp.common.executor.NormalThreadExecutor;
+import com.niu.myapp.myapp.common.executor.UIThreadExecutor;
 import com.niu.myapp.myapp.view.compnent.IMainView;
-import com.niu.myapp.myapp.view.executor.NormalThreadExecutor;
-import com.niu.myapp.myapp.view.executor.UIThreadExecutor;
 
 import javax.inject.Inject;
 

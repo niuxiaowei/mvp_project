@@ -10,9 +10,10 @@ import android.widget.TextView;
 
 import com.niu.myapp.myapp.R;
 import com.niu.myapp.myapp.common.util.ToastUtil;
+import com.niu.myapp.myapp.ui.dialog.DialogFactory;
+import com.niu.myapp.myapp.ui.dialog.ListDialogFragment;
 import com.niu.myapp.myapp.view.data.Friend;
-import com.niu.myapp.myapp.view.widget.DialogFactory;
-import com.niu.myapp.myapp.view.widget.ListDialogFragment;
+
 
 import java.util.List;
 

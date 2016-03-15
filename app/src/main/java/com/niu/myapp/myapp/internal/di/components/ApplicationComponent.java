@@ -2,13 +2,14 @@ package com.niu.myapp.myapp.internal.di.components;
 
 import android.content.Context;
 
+import com.niu.myapp.myapp.common.executor.NormalThreadExecutor;
+import com.niu.myapp.myapp.common.executor.UIThreadExecutor;
 import com.niu.myapp.myapp.data.localdata.db.user.UserDatabase;
 import com.niu.myapp.myapp.internal.di.modules.ApplicationModule;
 import com.niu.myapp.myapp.data.datastore.FriendDatastoreFactory;
 import com.niu.myapp.myapp.view.Navigator;
 import com.niu.myapp.myapp.view.activity.BaseActivity;
-import com.niu.myapp.myapp.view.executor.NormalThreadExecutor;
-import com.niu.myapp.myapp.view.executor.UIThreadExecutor;
+
 
 import dagger.Component;
 import javax.inject.Singleton;

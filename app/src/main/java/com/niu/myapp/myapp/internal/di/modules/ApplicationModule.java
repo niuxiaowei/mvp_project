@@ -3,11 +3,11 @@ package com.niu.myapp.myapp.internal.di.modules;
 import android.content.Context;
 
 import com.niu.myapp.myapp.BaseApplication;
+import com.niu.myapp.myapp.common.executor.NormalThreadExecutor;
+import com.niu.myapp.myapp.common.executor.UIThreadExecutor;
 import com.niu.myapp.myapp.data.datastore.FriendDatastoreFactory;
 import com.niu.myapp.myapp.data.localdata.db.user.UserDatabase;
 import com.niu.myapp.myapp.view.Navigator;
-import com.niu.myapp.myapp.view.executor.NormalThreadExecutor;
-import com.niu.myapp.myapp.view.executor.UIThreadExecutor;
 
 import dagger.Module;
 import dagger.Provides;
@@ -49,6 +49,6 @@ public class ApplicationModule {
 
     @Provides @Singleton
     UserDatabase provideUserDatabase(){
-        return new UserDatabase();
+        return new UserDatabase(this.application);
     }
 }

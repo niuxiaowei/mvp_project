@@ -8,12 +8,14 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.niu.myapp.myapp.base.present.BasePresenter;
+import com.niu.myapp.myapp.base.present.Presenter;
+import com.niu.myapp.myapp.common.executor.NormalThreadExecutor;
+import com.niu.myapp.myapp.common.executor.UIThreadExecutor;
 import com.niu.myapp.myapp.common.util.DLog;
 import com.niu.myapp.myapp.data.jsdata.JavaJSBridge;
 import com.niu.myapp.myapp.data.jsdata.JavascriptInterfaceKey;
 import com.niu.myapp.myapp.view.compnent.IH5View;
-import com.niu.myapp.myapp.view.executor.NormalThreadExecutor;
-import com.niu.myapp.myapp.view.executor.UIThreadExecutor;
 
 import java.util.HashSet;
 
@@ -24,7 +26,7 @@ import javax.inject.Inject;
  * Created by niuxiaowei on 2015/10/23.
  * html5的presenter主持类，涉及到html5与nativ之间的交互
  */
-public class  H5Presenter  extends BasePresenter implements Presenter ,JavaJSBridge.IBridgeListener {
+public class  H5Presenter  extends BasePresenter implements Presenter,JavaJSBridge.IBridgeListener {
 
     private WebView mWebView;
     private IH5View mIH5View;

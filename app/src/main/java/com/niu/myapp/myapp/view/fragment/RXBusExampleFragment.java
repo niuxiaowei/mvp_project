@@ -10,9 +10,7 @@ import com.niu.myapp.myapp.R;
 import com.niu.myapp.myapp.common.rxbus.RXBusManager;
 import com.niu.myapp.myapp.common.rxbus.RxBus;
 import com.niu.myapp.myapp.common.util.DLog;
-import com.niu.myapp.myapp.common.util.ToastUtil;
-import com.niu.myapp.myapp.view.activity.BaseActivity;
-import com.niu.myapp.myapp.view.executor.UIThreadExecutor;
+
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;

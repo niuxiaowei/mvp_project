@@ -5,13 +5,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.niu.myapp.myapp.R;
+import com.niu.myapp.myapp.base.util.FunctionException;
 import com.niu.myapp.myapp.common.image.ImageLoaderProxy;
 import com.niu.myapp.myapp.common.util.ToastUtil;
 import com.niu.myapp.myapp.internal.di.components.DaggerMainComponent;
@@ -19,13 +19,12 @@ import com.niu.myapp.myapp.internal.di.components.MainComponent;
 import com.niu.myapp.myapp.internal.di.modules.FriendsModule;
 import com.niu.myapp.myapp.internal.di.modules.LoginModule;
 import com.niu.myapp.myapp.internal.di.modules.MainModule;
+import com.niu.myapp.myapp.ui.dialog.ConfirmDialogFragment;
 import com.niu.myapp.myapp.view.compnent.IFriendListView;
 import com.niu.myapp.myapp.view.compnent.ILoginView;
 import com.niu.myapp.myapp.view.compnent.IMainView;
 import com.niu.myapp.myapp.view.data.Friend;
 import com.niu.myapp.myapp.view.data.User;
-import com.niu.myapp.myapp.view.util.FunctionException;
-import com.niu.myapp.myapp.view.widget.ConfirmDialogFragment;
 
 import java.util.List;
 

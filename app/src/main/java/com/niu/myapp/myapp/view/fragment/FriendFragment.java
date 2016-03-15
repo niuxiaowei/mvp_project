@@ -12,16 +12,11 @@ import android.widget.TextView;
 import com.niu.myapp.myapp.R;
 import com.niu.myapp.myapp.common.util.ToastUtil;
 import com.niu.myapp.myapp.internal.di.components.DaggerFragmentInjectComponent;
-import com.niu.myapp.myapp.internal.di.components.DaggerFriendsComponent;
-import com.niu.myapp.myapp.internal.di.components.FriendsComponent;
-import com.niu.myapp.myapp.internal.di.modules.FriendsModule;
-import com.niu.myapp.myapp.internal.di.modules.SubFriendsModule;
 import com.niu.myapp.myapp.presenter.FriendListPresenter;
+import com.niu.myapp.myapp.ui.dialog.ConfirmDialogFragment;
 import com.niu.myapp.myapp.view.adapter.FriendAdapter;
 import com.niu.myapp.myapp.view.compnent.IFriendListView;
 import com.niu.myapp.myapp.view.data.Friend;
-import com.niu.myapp.myapp.view.widget.BaseDialogFragment;
-import com.niu.myapp.myapp.view.widget.ConfirmDialogFragment;
 
 import java.util.ArrayList;
 import java.util.List;

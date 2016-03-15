@@ -9,11 +9,10 @@ import android.view.MenuItem;
 
 import com.niu.myapp.myapp.R;
 
+import com.niu.myapp.myapp.base.util.Functions;
 import com.niu.myapp.myapp.common.util.DLog;
 import com.niu.myapp.myapp.view.data.Friend;
-import com.niu.myapp.myapp.view.fragment.BaseFragment;
 import com.niu.myapp.myapp.view.fragment.MainFragment;
-import com.niu.myapp.myapp.view.util.Functions;
 
 
 public class MainActivity extends BaseActivity {
