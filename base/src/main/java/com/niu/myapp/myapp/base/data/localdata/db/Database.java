@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.niu.myapp.myapp.basedata.localdata.db;
+package com.niu.myapp.myapp.base.data.localdata.db;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -45,7 +45,7 @@ import java.util.List;
  *     }
  * </pre>
  * <p>
- * 上面的省份类添加了 {@link DBTable} 标注，表示该类对应于一张数据库表，并且 DBTable 标注的 name 属性被设置成
+ * 上面的省份类添加了 {@link com.niu.myapp.myapp.base.data.localdata.db.DBTable} 标注，表示该类对应于一张数据库表，并且 DBTable 标注的 name 属性被设置成
  * province（Province.TABLE_NAME 常量的值）， 表示该类对应的数据库表的名称为
  * province。该类有两个公开的字段，这两个字段都添加了 {@link DBColumn} 标注， 表示这两个字段分别对应数据库表 province
  * 的两个数据列，并且名称分别为 provinceId 和 provinceName。另外，provinceId 和 provinceName 字段的类型
@@ -530,11 +530,11 @@ public abstract class Database {
      */
     private ClassReflection getClassReflection(Class<? extends ORMModel> klass) {
         ClassReflection cf = null;
-        if (klass.isAnnotationPresent(DBTable.class)) {
+        if (klass.isAnnotationPresent(com.niu.myapp.myapp.base.data.localdata.db.DBTable.class)) {
             cf = classReflections.get(klass);
             if (cf == null) {
                 cf = new ClassReflection();
-                cf.tableName = klass.getAnnotation(DBTable.class).name();
+                cf.tableName = klass.getAnnotation(com.niu.myapp.myapp.base.data.localdata.db.DBTable.class).name();
                 cf.fieldReflections = new ArrayList<FieldReflection>();
                 for (Field field : klass.getFields()) {
                     if (field.isAnnotationPresent(DBColumn.class)) {

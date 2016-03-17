@@ -1,4 +1,4 @@
-package com.niu.myapp.myapp.basedata.interactor;
+package com.niu.myapp.myapp.base.data.interactor;
 
 import android.support.annotation.NonNull;
 

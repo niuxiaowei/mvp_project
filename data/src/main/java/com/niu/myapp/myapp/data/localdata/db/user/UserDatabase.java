@@ -2,9 +2,9 @@ package com.niu.myapp.myapp.data.localdata.db.user;
 
 import android.content.Context;
 
-import com.niu.myapp.myapp.basedata.localdata.db.Database;
-import com.niu.myapp.myapp.basedata.localdata.db.ORMModel;
-import com.niu.myapp.myapp.data.entity.FriendEntity;
+
+import com.niu.myapp.myapp.base.data.localdata.db.Database;
+import com.niu.myapp.myapp.base.data.localdata.db.ORMModel;import com.niu.myapp.myapp.data.entity.FriendEntity;
 import com.niu.myapp.myapp.data.entity.UserEntity;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import java.util.List;
 public class UserDatabase extends Database {
 
 
-    public UserDatabase(Context context){
+    public UserDatabase(Context context) {
         super(context);
     }
 

@@ -2,7 +2,7 @@ package com.niu.myapp.myapp.data.interactor;
 
 import android.text.TextUtils;
 
-import com.niu.myapp.myapp.basedata.interactor.BaseUserCase;
+import com.niu.myapp.myapp.base.data.interactor.BaseUserCase;
 import com.niu.myapp.myapp.common.executor.NormalThreadExecutor;
 import com.niu.myapp.myapp.common.executor.UIThreadExecutor;
 import com.niu.myapp.myapp.data.datastore.FriendDatastoreFactory;
@@ -26,11 +26,10 @@ public class FriendUserCase extends BaseUserCase {
     @Inject
     public FriendUserCase(UIThreadExecutor uiThreadExecutor, NormalThreadExecutor normalThreadExecutor,
             FriendDatastoreFactory friendDatastoreFactory) {
-        super(uiThreadExecutor,normalThreadExecutor);
+        super(uiThreadExecutor, normalThreadExecutor);
 
         this.mFriendDatastoreFactory = friendDatastoreFactory;
     }
-
 
 
     /**
@@ -100,7 +99,6 @@ public class FriendUserCase extends BaseUserCase {
         execute(mFriendDatastoreFactory.createFriendDatastore().saveFriends(friends), saveFriendSubscriber);
 
     }
-
 
 
     public void getGitHubUser(String userName, Subscriber userSubscriber) {

@@ -98,6 +98,7 @@ dependencies {
     //retrofit add log
     compile 'com.squareup.okhttp3:logging-interceptor:3.0.1'
     compile project(':base')
+    compile project(':data')
 }
 
 task mytest << {
