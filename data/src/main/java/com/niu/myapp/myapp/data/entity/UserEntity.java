@@ -1,8 +1,8 @@
 package com.niu.myapp.myapp.data.entity;
 
-import com.niu.myapp.myapp.data.localdata.db.DBColumn;
-import com.niu.myapp.myapp.data.localdata.db.DBTable;
-import com.niu.myapp.myapp.data.localdata.db.ORMModel;
+import com.niu.myapp.myapp.basedata.localdata.db.DBColumn;
+import com.niu.myapp.myapp.basedata.localdata.db.DBTable;
+import com.niu.myapp.myapp.basedata.localdata.db.ORMModel;
 
 /**
  * Created by niuxiaowei on 2016/1/15.

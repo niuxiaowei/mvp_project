@@ -1,7 +1,7 @@
 /**
- * 
+ *
  */
-package com.niu.myapp.myapp.data.localdata.db;
+package com.niu.myapp.myapp.basedata.localdata.db;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * 数据库抽象类，该类的子类代表一个 SQLite 数据库。该类可根据添加了标注的 model 类自动建表、更新表，
  * 并简化常规的插入、查询、更新等操作而无需关心具体的 Java 对象和数据库对象间的映射关系。
- * 
+ *
  * <p>
  * 假设你想创建一个城市相关的数据库，这个数据库中包含两张表：省份表和城市表，那么你可以创建两个继承自 {@link ORMModel} 的 model 类，
  * 用来映射到城市数据库中的两张表，另外，再创建一个派生自 {@link Database} 的子类，用来表示你的数据库。<br>
@@ -415,10 +415,10 @@ public abstract class Database {
         list.add(model);
         return update(list);
     }
-    
+
     /**
      * 删除某条记录
-     * 
+     *
      * @param model 要删除的记录
      * @return sql 语句执行是否成功
      */
@@ -429,10 +429,10 @@ public abstract class Database {
         }
         return false;
     }
-    
+
     /**
      * 执行任意标准 sql 语句，比如清除某张表里的数据
-     * 
+     *
      * @param sql 要执行的语句
      * @return sql 语句执行是否成功
      */
@@ -446,7 +446,7 @@ public abstract class Database {
         }
         return false;
     }
-    
+
     /**
      * 获取 sql 语句查询到的记录条数
      * @param sql 查询语句，必须包含 COUNT() 方法，且 column 数为 1，例如：SELECT COUNT(*) FROM city WHERE cityId=12
@@ -469,14 +469,14 @@ public abstract class Database {
         }
         return count;
     }
-    
+
     /**
      * 返回当前的 SQLiteOpenHelper 对象，可使用该对象执行更加复杂的数据库操作
      */
     public SQLiteOpenHelper getSQLiteOpenHelper() {
         return mOpenHelper;
     }
-    
+
     private ContentValues getContentValuesFromModel(ORMModel model) {
         Class<? extends ORMModel> tableClass = (Class<? extends ORMModel>) model.getClass();
         ClassReflection cr = getClassReflection(tableClass);
@@ -487,7 +487,7 @@ public abstract class Database {
                     if (fr.columnName.equals("_id")) {
                         continue;
                     }
-                    
+
                     Class<?> fieldType = fr.field.getType();
                     if (fieldType.equals(Double.TYPE)) {
                         cv.put(fr.columnName, fr.field.getDouble(model));
@@ -509,7 +509,7 @@ public abstract class Database {
                         cv.put(fr.columnName, SerializedUtils.getSerializedBytes(fr.field.get(model)));
                     }
                 }
-                
+
                 return cv;
             } catch (Exception e) {
                 DLog.e(TAG, e);
@@ -519,12 +519,12 @@ public abstract class Database {
     }
 
 
-    
+
     private boolean isSerializableField(Class<?> fieldType) {
         // 除了 IntentExtra 类型之外的其他可序列化类型，才允许持久化
         return Serializable.class.isAssignableFrom(fieldType);
     }
-    
+
     /**
      * 找出 klass 中所有关联数据库字段的成员变量，并加入缓存
      */
@@ -544,38 +544,38 @@ public abstract class Database {
                         cf.fieldReflections.add(f);
                     }
                 }
-                
+
                 classReflections.put(klass, cf);
             }
         }
         return cf;
     }
-    
+
     private static class ClassReflection {
         String tableName;
         ArrayList<FieldReflection> fieldReflections;
     }
-    
+
     private static class FieldReflection {
         Field field;
         String columnName;
     }
-    
+
     private class OpenHelper extends SQLiteOpenHelper {
-        
+
         public OpenHelper(Context context) {
             super(context, getDBName(), null, getDBVersion());
         }
-        
+
         @Override
         public void onCreate(SQLiteDatabase db) {
             onDBCreate(db);
         }
-        
+
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             onDBUpgrade(db);
         }
-        
+
     }
 }

@@ -2,6 +2,7 @@ package com.niu.myapp.myapp.data.interactor;
 
 import android.text.TextUtils;
 
+import com.niu.myapp.myapp.basedata.interactor.BaseUserCase;
 import com.niu.myapp.myapp.common.executor.NormalThreadExecutor;
 import com.niu.myapp.myapp.common.executor.UIThreadExecutor;
 import com.niu.myapp.myapp.data.datastore.FriendDatastoreFactory;
@@ -13,28 +14,24 @@ import java.util.List;
 import javax.inject.Inject;
 
 import rx.Subscriber;
-import rx.Subscription;
-import rx.schedulers.Schedulers;
-import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by niuxiaowei on 2016/1/22.
  */
-public class FriendUserCase {
+public class FriendUserCase extends BaseUserCase {
 
-    protected UIThreadExecutor mUIThreadExecutor;
-    protected NormalThreadExecutor normalThreadExecutor;
+
     private FriendDatastoreFactory mFriendDatastoreFactory;
 
     @Inject
-    public FriendUserCase(UIThreadExecutor uiThreadExecutor, NormalThreadExecutor normalThreadExecutor,FriendDatastoreFactory friendDatastoreFactory){
+    public FriendUserCase(UIThreadExecutor uiThreadExecutor, NormalThreadExecutor normalThreadExecutor,
+            FriendDatastoreFactory friendDatastoreFactory) {
+        super(uiThreadExecutor,normalThreadExecutor);
 
-        this.mUIThreadExecutor = uiThreadExecutor;
-        this.normalThreadExecutor = normalThreadExecutor;
         this.mFriendDatastoreFactory = friendDatastoreFactory;
     }
 
-    private CompositeSubscription compositeSubscription = new CompositeSubscription();
+
 
     /**
      * 根据登录用户id获取登录用户的朋友
@@ -43,10 +40,7 @@ public class FriendUserCase {
         if (getFriendsSubscriber == null || TextUtils.isEmpty(loginId)) {
             return;
         }
-
-        Subscription sn =mFriendDatastoreFactory.createFriendDatastore(loginId).getFriendModels(loginId).subscribeOn(Schedulers.from(normalThreadExecutor))
-                .observeOn(Schedulers.from(mUIThreadExecutor)).subscribe(getFriendsSubscriber);
-        compositeSubscription.add(sn);
+        execute(mFriendDatastoreFactory.createFriendDatastore(loginId).getFriendModels(loginId), getFriendsSubscriber);
 
     }
 
@@ -57,35 +51,35 @@ public class FriendUserCase {
      * @param getFriendSubscriber
      */
     public void getFriend(final String loginId, final String friendId, Subscriber getFriendSubscriber) {
-        if (getFriendSubscriber == null || TextUtils.isEmpty(friendId)|| TextUtils.isEmpty(loginId)) {
+        if (getFriendSubscriber == null || TextUtils.isEmpty(friendId) || TextUtils.isEmpty(loginId)) {
             return;
         }
-        Subscription sn = mFriendDatastoreFactory.createFriendDatastore(loginId).getFriend(loginId,friendId).subscribeOn(Schedulers.from(normalThreadExecutor))
-                .observeOn(Schedulers.from(mUIThreadExecutor)).subscribe(getFriendSubscriber);
-        compositeSubscription.add(sn);
+        execute(mFriendDatastoreFactory.createFriendDatastore(loginId).getFriend(loginId, friendId),
+                getFriendSubscriber);
+
     }
 
     /**
      * 删除一个好友
-
+     *
      * @param deleteFriendSubscriber
      */
-    public void deleteFriend(final FriendEntity friend, Subscriber deleteFriendSubscriber){
+    public void deleteFriend(final FriendEntity friend, Subscriber deleteFriendSubscriber) {
         if (deleteFriendSubscriber == null || friend == null) {
             return;
         }
-        Subscription sn = mFriendDatastoreFactory.createFriendDatastore().deleteFriend(friend).subscribeOn(Schedulers.from(normalThreadExecutor))
-                .observeOn(Schedulers.from(mUIThreadExecutor)).subscribe(deleteFriendSubscriber);
-        compositeSubscription.add(sn);
+        execute(mFriendDatastoreFactory.createFriendDatastore().deleteFriend(friend), deleteFriendSubscriber);
+
     }
 
     /**
      * 保存一个朋友
+     *
      * @param friend
      * @param saveFriendSubscriber
      */
-    public void saveFriend(FriendEntity friend, Subscriber saveFriendSubscriber){
-        if(friend == null || saveFriendSubscriber == null){
+    public void saveFriend(FriendEntity friend, Subscriber saveFriendSubscriber) {
+        if (friend == null || saveFriendSubscriber == null) {
             return;
         }
         List<FriendEntity> fs = new ArrayList<>(1);
@@ -95,28 +89,24 @@ public class FriendUserCase {
 
     /**
      * 保存多个朋友
+     *
      * @param friends
      * @param saveFriendSubscriber
      */
-    public void saveFriends(final List<FriendEntity> friends, Subscriber saveFriendSubscriber){
+    public void saveFriends(final List<FriendEntity> friends, Subscriber saveFriendSubscriber) {
         if (saveFriendSubscriber == null || friends == null) {
             return;
         }
-        Subscription sn = mFriendDatastoreFactory.createFriendDatastore().saveFriends(friends).subscribeOn(Schedulers.from(normalThreadExecutor))
-                .observeOn(Schedulers.from(mUIThreadExecutor)).subscribe(saveFriendSubscriber);
-        compositeSubscription.add(sn);
+        execute(mFriendDatastoreFactory.createFriendDatastore().saveFriends(friends), saveFriendSubscriber);
+
     }
 
-    public void unsubscribe(){
-        if(compositeSubscription.isUnsubscribed()){
-            compositeSubscription.unsubscribe();
-        }
-    }
 
-    public void getGitHubUser(String userName, Subscriber userSubscriber){
 
-        mFriendDatastoreFactory.createRemoteFriendDatastore().getGitHubUserEntity(userName).subscribeOn(Schedulers.from(normalThreadExecutor))
-                .observeOn(Schedulers.from(mUIThreadExecutor)).subscribe(userSubscriber);
+    public void getGitHubUser(String userName, Subscriber userSubscriber) {
+
+        execute(mFriendDatastoreFactory.createRemoteFriendDatastore().getGitHubUserEntity(userName), userSubscriber);
+
     }
 
 }

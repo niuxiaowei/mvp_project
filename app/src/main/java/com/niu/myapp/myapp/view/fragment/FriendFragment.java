@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.niu.myapp.myapp.R;
+import com.niu.myapp.myapp.common.util.DLog;
 import com.niu.myapp.myapp.common.util.ToastUtil;
 import com.niu.myapp.myapp.internal.di.components.DaggerFragmentInjectComponent;
 import com.niu.myapp.myapp.presenter.FriendListPresenter;
