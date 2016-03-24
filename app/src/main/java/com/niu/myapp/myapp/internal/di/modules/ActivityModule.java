@@ -2,7 +2,7 @@ package com.niu.myapp.myapp.internal.di.modules;
 
 import android.app.Activity;
 
-import com.niu.myapp.myapp.internal.di.PerActivity;
+import com.niu.myapp.myapp.base.di.PerActivity;
 
 import dagger.Module;
 import dagger.Provides;

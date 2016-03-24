@@ -1,7 +1,6 @@
 package com.niu.myapp.myapp.internal.di.components;
 
-import com.niu.myapp.myapp.internal.di.PerActivity;
-import com.niu.myapp.myapp.internal.di.modules.FriendsModule;
+import com.niu.myapp.myapp.base.di.PerActivity;
 import com.niu.myapp.myapp.internal.di.modules.SubFriendsModule;
 import com.niu.myapp.myapp.view.fragment.FriendFragment;
 

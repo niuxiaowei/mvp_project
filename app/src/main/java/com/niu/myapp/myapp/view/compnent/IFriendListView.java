@@ -1,5 +1,6 @@
 package com.niu.myapp.myapp.view.compnent;
 
+import com.niu.myapp.myapp.base.present.IView;
 import com.niu.myapp.myapp.view.data.Friend;
 
 import java.util.List;

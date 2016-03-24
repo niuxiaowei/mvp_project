@@ -11,21 +11,16 @@ import com.niu.myapp.myapp.view.Navigator;
 
 import javax.inject.Inject;
 
-public abstract class BaseActivity extends com.niu.myapp.myapp.base.BaseActivity {
+public abstract class BaseActivity extends com.niu.myapp.myapp.base.BaseActivity <ApplicationComponent>{
 
 
     @Inject
     Navigator mNavigator;
 
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getApplicationComponent().inject(this);
 
     }
 

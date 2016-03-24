@@ -4,11 +4,12 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
 
+import com.niu.myapp.myapp.base.di.components.BaseApplicationComponent;
 import com.niu.myapp.myapp.ui.dialog.BaseDialogFragment;
 import com.niu.myapp.myapp.ui.dialog.DialogFactory;
 
 
-public abstract class BaseActivity extends FragmentActivity implements BaseDialogFragment.DialogListenerAccessor {
+public abstract class BaseActivity<C> extends FragmentActivity implements BaseDialogFragment.DialogListenerAccessor {
 
     protected DialogFactory mDialogFactory;
 
@@ -48,6 +49,11 @@ public abstract class BaseActivity extends FragmentActivity implements BaseDialo
 
 
 
+    /**
+     * Get the Main Application component for dependency injection.
+     *
+     */
+    public abstract C getApplicationComponent() ;
 
 
 

@@ -15,9 +15,9 @@ public abstract class BaseFragment extends com.niu.myapp.myapp.base.BaseFragment
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+
         if(activity instanceof BaseActivity){
             mBaseActivity = (BaseActivity)activity;
-            mBaseActivity.setFunctionsForFragment(getId());
         }
 
     }

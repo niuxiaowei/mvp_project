@@ -1,9 +1,7 @@
 package com.niu.myapp.myapp.internal.di.components;
 
-import com.niu.myapp.myapp.internal.di.PerActivity;
-import com.niu.myapp.myapp.internal.di.modules.ActivityModule;
+import com.niu.myapp.myapp.base.di.PerActivity;
 import com.niu.myapp.myapp.internal.di.modules.LoginModule;
-import com.niu.myapp.myapp.internal.di.modules.PresentersModule;
 import com.niu.myapp.myapp.presenter.LoginPresenter;
 import com.niu.myapp.myapp.view.fragment.MainFragment;
 

@@ -1,6 +1,7 @@
-package com.niu.myapp.myapp.internal.di;
+package com.niu.myapp.myapp.base.di;
 
 import java.lang.annotation.Retention;
+
 import javax.inject.Scope;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
